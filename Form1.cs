@@ -282,9 +282,39 @@ namespace wolfPack_Assign2
             return false;
         }
 
+        //FIX LATER NEED DOC BOX
         private void userNameCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
+        }
+
+        //FIX LATER NEED DOC BOX
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            if (User.loginCheck(passwordTextBox.Text))
+            {
+                sysOutputTextBox.AppendText("Login successful.");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+
+            }
+            else if(userNameCombo.SelectedIndex == -1)
+            {
+                sysOutputTextBox.AppendText("Please select a user and type their password.");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+            }
+            else if (String.IsNullOrEmpty(passwordTextBox.Text))
+            {
+                string[] user = selectedUser.Split(' ');
+                sysOutputTextBox.AppendText("Please type the password for user "+ user[0] + ".");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+            }
+            else
+            {
+                string[] user = selectedUser.Split(' ');
+                sysOutputTextBox.AppendText("Invalid password for user: " + user[0] + "  - Action Failed.");
+                sysOutputTextBox.AppendText(Environment.NewLine); 
+                loginButton.Text = "Retry Password";
+            }
         }
     }
 }

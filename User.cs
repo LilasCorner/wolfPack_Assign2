@@ -25,7 +25,7 @@ namespace wolfPack_Assign2
         private uint userType=0;
         private int postScore;
         private int commentScore;
-        private string passHash; //FIX LATER
+        private static string passHash;
         List<String> modSubs = new List<String>();
 
 
@@ -137,7 +137,11 @@ namespace wolfPack_Assign2
             }
         }
 
+        public static string PassHash
+        {
+            get { return passHash; }
 
+        }
         public int PostScore
         {
             get { return postScore; }
@@ -153,6 +157,18 @@ namespace wolfPack_Assign2
         }
 
         public int TotalScore => commentScore + postScore;
+
+        public static bool loginCheck(string pass)
+        {
+            string attempt = pass.GetHashCode().ToString("X");
+            string correct = PassHash;
+
+            if(correct.Equals(attempt))
+            {
+                return true;
+            }
+            return false;
+        }
 
         public override string ToString()
         {
