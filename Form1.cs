@@ -345,15 +345,9 @@ namespace wolfPack_Assign2
         {
 
             string[] users = user.Split(' ');
-            MessageBox.Show(user);
-
             uint id = nameToId(users[0], 1);
-            MessageBox.Show(id.ToString());
-
             string attempt = pass.GetHashCode().ToString("X");
-            MessageBox.Show(attempt);
             string correct = usersMap[id].PassHash;
-            MessageBox.Show(correct);
 
 
             if (correct == attempt)
@@ -404,6 +398,8 @@ namespace wolfPack_Assign2
                 memberLabel.Visible = true;
                 activeLabel.Text = subMap[index].Active.ToString();
                 activeLabel.Visible = true;
+
+
             }
 
         }
