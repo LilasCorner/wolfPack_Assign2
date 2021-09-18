@@ -62,9 +62,10 @@ namespace wolfPack_Assign2
             // activeLabel
             // 
             this.activeLabel.AutoSize = true;
-            this.activeLabel.Location = new System.Drawing.Point(93, 481);
+            this.activeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeLabel.Location = new System.Drawing.Point(100, 481);
             this.activeLabel.Name = "activeLabel";
-            this.activeLabel.Size = new System.Drawing.Size(14, 15);
+            this.activeLabel.Size = new System.Drawing.Size(14, 13);
             this.activeLabel.TabIndex = 35;
             this.activeLabel.Text = "#";
             this.activeLabel.Visible = false;
@@ -72,9 +73,10 @@ namespace wolfPack_Assign2
             // memberLabel
             // 
             this.memberLabel.AutoSize = true;
-            this.memberLabel.Location = new System.Drawing.Point(93, 449);
+            this.memberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.memberLabel.Location = new System.Drawing.Point(100, 453);
             this.memberLabel.Name = "memberLabel";
-            this.memberLabel.Size = new System.Drawing.Size(14, 15);
+            this.memberLabel.Size = new System.Drawing.Size(14, 13);
             this.memberLabel.TabIndex = 34;
             this.memberLabel.Text = "#";
             this.memberLabel.Visible = false;
@@ -93,22 +95,22 @@ namespace wolfPack_Assign2
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.830189F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.OrangeRed;
             this.label7.Location = new System.Drawing.Point(16, 481);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.Size = new System.Drawing.Size(57, 17);
             this.label7.TabIndex = 32;
             this.label7.Text = "Active:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.830189F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.OrangeRed;
             this.label6.Location = new System.Drawing.Point(16, 449);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.Size = new System.Drawing.Size(78, 17);
             this.label6.TabIndex = 31;
             this.label6.Text = "Members:";
             // 
@@ -226,6 +228,7 @@ namespace wolfPack_Assign2
             this.subredditListBox.Name = "subredditListBox";
             this.subredditListBox.Size = new System.Drawing.Size(142, 277);
             this.subredditListBox.TabIndex = 19;
+            this.subredditListBox.SelectedIndexChanged += new System.EventHandler(this.subredditListBox_SelectedIndexChanged);
             // 
             // panel1
             // 

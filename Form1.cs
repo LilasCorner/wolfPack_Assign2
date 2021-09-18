@@ -15,7 +15,7 @@ namespace wolfPack_Assign2
     public partial class Form1 : Form
     {
         protected static SortedDictionary<uint, User> usersMap = new SortedDictionary<uint, User>();
-        protected static SortedDictionary<uint, String> subMap = new SortedDictionary<uint, String>();
+        protected static SortedDictionary<uint, Subreddit> subMap = new SortedDictionary<uint, Subreddit>();
         protected static SortedDictionary<uint, String> postMap = new SortedDictionary<uint, String>();
         protected static SortedDictionary<uint, String> comMap = new SortedDictionary<uint, String>();
         public static ArrayList globalIds = new ArrayList();
@@ -27,6 +27,8 @@ namespace wolfPack_Assign2
         public const int USER_INDEX = 6;
 
         protected static string selectedUser = "";
+        protected static string selectedSub = "";
+
 
         enum badWords
         {
@@ -41,11 +43,12 @@ namespace wolfPack_Assign2
         {
             InitializeComponent();
             readData();
-
             addData();
         }
 
-
+        //FIX LATER NEED DOC BOX
+        //FIX LATER NEEDS IMPLEMENTATION FOR POSTS CLASS DICTIONARY, COMMENT CLASS DICTIONARY
+        // right now it just reads the string into the dictionary, it does not actually create the object
         public void readData()
         {
             string lineRead = "";
@@ -93,8 +96,8 @@ namespace wolfPack_Assign2
                         string[] tokens = lineRead.Split('\t');
 
                         //parse all tokens into dictionary + array of all ID's
-                        subMap.Add(Convert.ToUInt32(tokens[0]), lineRead);
-
+                        subMap[Convert.ToUInt32(tokens[0])] = new Subreddit(tokens);
+                        globalIds.Add(Convert.ToUInt32(tokens[0]));
 
                         lineRead = inFile.ReadLine();
                     }
@@ -159,7 +162,7 @@ namespace wolfPack_Assign2
 
         }
 
-
+        
         // Method:  addData()
         // Purpose: adds the data from the Dictionaries to their components on the form
         // Params: N/A
@@ -177,16 +180,56 @@ namespace wolfPack_Assign2
                 subredditListBox.Items.Add(subMap[item]);
             }
 
-            foreach (var item in postMap.Keys)
+
+        }
+
+        //FIX LATER NEED DOC BOX
+        public uint nameToId(string name, string dictionary)
+        {
+            if (dictionary.Equals("user"))
             {
-                postListBox.Items.Add(postMap[item]);
+                foreach(var item in usersMap.Keys)
+                {
+                    if (usersMap[item].Name.Equals(name))
+                    {
+                        return item;
+                    }
+                }
+            }
+            if (dictionary.Equals("sub"))
+            {
+                foreach (var item in subMap.Keys)
+                {
+                    if (subMap[item].Name.Equals(name))
+                    {
+                        return item;
+                    }
+                }
+            }
+            
+
+            return 0;
+        }
+
+        //returns what class type the paramater ID is from FIX LATER NEEDS DOC BOX
+        public static int whatAmI(uint id)
+        {
+            if (usersMap.ContainsKey(id)) //USER
+            {
+                return 0;
             }
 
-            foreach (var item in comMap.Keys)
+            if (subMap.ContainsKey(id)) // SUBREDDIT
             {
-                commentListBox.Items.Add(comMap[item]);
+                return 1;
             }
 
+            if (postMap.ContainsKey(id)) //POST
+            {
+                return 2;
+            }
+
+            return 3; //COMMENT
 
         }
 
@@ -289,13 +332,21 @@ namespace wolfPack_Assign2
         }
 
         //FIX LATER NEED DOC BOX
+        //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
+        public void populateComments()
+        {
+            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        }
+
+
+        //FIX LATER NEED DOC BOX
         private void loginButton_Click(object sender, EventArgs e)
         {
             if (User.loginCheck(passwordTextBox.Text))
             {
                 sysOutputTextBox.AppendText("Login successful.");
                 sysOutputTextBox.AppendText(Environment.NewLine);
-
+                populateComments();
             }
             else if(userNameCombo.SelectedIndex == -1)
             {
@@ -315,6 +366,21 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(Environment.NewLine); 
                 loginButton.Text = "Retry Password";
             }
+        }
+
+        private void subredditListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(subredditListBox.SelectedIndex != -1)
+            {
+                selectedSub = subredditListBox.Items[subredditListBox.SelectedIndex].ToString();
+                uint index = nameToId(selectedSub, "sub");
+                memberLabel.Text = subMap[index].Members.ToString();
+                memberLabel.Visible = true;
+                activeLabel.Text = subMap[index].Active.ToString();
+                activeLabel.Visible = true;
+
+            }
+
         }
     }
 }
