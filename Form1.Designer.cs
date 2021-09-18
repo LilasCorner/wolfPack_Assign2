@@ -84,7 +84,7 @@ namespace wolfPack_Assign2
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.22642F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label8.Location = new System.Drawing.Point(22, 138);
+            this.label8.Location = new System.Drawing.Point(12, 138);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(110, 24);
             this.label8.TabIndex = 33;
@@ -95,7 +95,7 @@ namespace wolfPack_Assign2
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label7.Location = new System.Drawing.Point(26, 481);
+            this.label7.Location = new System.Drawing.Point(16, 481);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 13);
             this.label7.TabIndex = 32;
@@ -106,7 +106,7 @@ namespace wolfPack_Assign2
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label6.Location = new System.Drawing.Point(26, 449);
+            this.label6.Location = new System.Drawing.Point(16, 449);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 13);
             this.label6.TabIndex = 31;
@@ -117,7 +117,7 @@ namespace wolfPack_Assign2
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.button1.Location = new System.Drawing.Point(680, 488);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 28);
+            this.button1.Size = new System.Drawing.Size(132, 28);
             this.button1.TabIndex = 30;
             this.button1.Text = "Add Reply";
             this.button1.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@ namespace wolfPack_Assign2
             this.sysOutputTextBox.Multiline = true;
             this.sysOutputTextBox.Name = "sysOutputTextBox";
             this.sysOutputTextBox.ReadOnly = true;
-            this.sysOutputTextBox.Size = new System.Drawing.Size(583, 82);
+            this.sysOutputTextBox.Size = new System.Drawing.Size(604, 82);
             this.sysOutputTextBox.TabIndex = 25;
             // 
             // addReplyListBox
@@ -180,7 +180,7 @@ namespace wolfPack_Assign2
             this.addReplyListBox.FormattingEnabled = true;
             this.addReplyListBox.Location = new System.Drawing.Point(208, 404);
             this.addReplyListBox.Name = "addReplyListBox";
-            this.addReplyListBox.Size = new System.Drawing.Size(583, 82);
+            this.addReplyListBox.Size = new System.Drawing.Size(604, 82);
             this.addReplyListBox.TabIndex = 24;
             // 
             // deleteCommentButton
@@ -188,7 +188,7 @@ namespace wolfPack_Assign2
             this.deleteCommentButton.ForeColor = System.Drawing.Color.Red;
             this.deleteCommentButton.Location = new System.Drawing.Point(680, 370);
             this.deleteCommentButton.Name = "deleteCommentButton";
-            this.deleteCommentButton.Size = new System.Drawing.Size(111, 28);
+            this.deleteCommentButton.Size = new System.Drawing.Size(132, 28);
             this.deleteCommentButton.TabIndex = 23;
             this.deleteCommentButton.Text = "Delete Comment";
             this.deleteCommentButton.UseVisualStyleBackColor = true;
@@ -198,7 +198,7 @@ namespace wolfPack_Assign2
             this.commentListBox.FormattingEnabled = true;
             this.commentListBox.Location = new System.Drawing.Point(208, 286);
             this.commentListBox.Name = "commentListBox";
-            this.commentListBox.Size = new System.Drawing.Size(583, 82);
+            this.commentListBox.Size = new System.Drawing.Size(604, 82);
             this.commentListBox.TabIndex = 22;
             // 
             // deletePostButton
@@ -206,7 +206,7 @@ namespace wolfPack_Assign2
             this.deletePostButton.ForeColor = System.Drawing.Color.Red;
             this.deletePostButton.Location = new System.Drawing.Point(681, 252);
             this.deletePostButton.Name = "deletePostButton";
-            this.deletePostButton.Size = new System.Drawing.Size(111, 28);
+            this.deletePostButton.Size = new System.Drawing.Size(132, 28);
             this.deletePostButton.TabIndex = 21;
             this.deletePostButton.Text = "Delete Post";
             this.deletePostButton.UseVisualStyleBackColor = true;
@@ -216,13 +216,13 @@ namespace wolfPack_Assign2
             this.postListBox.FormattingEnabled = true;
             this.postListBox.Location = new System.Drawing.Point(208, 168);
             this.postListBox.Name = "postListBox";
-            this.postListBox.Size = new System.Drawing.Size(583, 82);
+            this.postListBox.Size = new System.Drawing.Size(604, 82);
             this.postListBox.TabIndex = 20;
             // 
             // subredditListBox
             // 
             this.subredditListBox.FormattingEnabled = true;
-            this.subredditListBox.Location = new System.Drawing.Point(26, 168);
+            this.subredditListBox.Location = new System.Drawing.Point(16, 168);
             this.subredditListBox.Name = "subredditListBox";
             this.subredditListBox.Size = new System.Drawing.Size(142, 277);
             this.subredditListBox.TabIndex = 19;
@@ -237,9 +237,9 @@ namespace wolfPack_Assign2
             this.panel1.Controls.Add(this.userNameCombo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.redditBox);
-            this.panel1.Location = new System.Drawing.Point(27, 27);
+            this.panel1.Location = new System.Drawing.Point(17, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(764, 89);
+            this.panel1.Size = new System.Drawing.Size(795, 89);
             this.panel1.TabIndex = 18;
             // 
             // label10
@@ -247,7 +247,7 @@ namespace wolfPack_Assign2
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label10.Location = new System.Drawing.Point(450, 18);
+            this.label10.Location = new System.Drawing.Point(409, 17);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 13);
             this.label10.TabIndex = 15;
@@ -258,7 +258,7 @@ namespace wolfPack_Assign2
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.792453F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label9.Location = new System.Drawing.Point(605, 18);
+            this.label9.Location = new System.Drawing.Point(634, 17);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 13);
             this.label9.TabIndex = 14;
@@ -266,7 +266,7 @@ namespace wolfPack_Assign2
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(697, 60);
+            this.loginButton.Location = new System.Drawing.Point(726, 60);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(54, 23);
             this.loginButton.TabIndex = 4;
@@ -275,7 +275,7 @@ namespace wolfPack_Assign2
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(608, 34);
+            this.passwordTextBox.Location = new System.Drawing.Point(637, 33);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(143, 20);
@@ -284,9 +284,9 @@ namespace wolfPack_Assign2
             // userNameCombo
             // 
             this.userNameCombo.FormattingEnabled = true;
-            this.userNameCombo.Location = new System.Drawing.Point(453, 33);
+            this.userNameCombo.Location = new System.Drawing.Point(412, 32);
             this.userNameCombo.Name = "userNameCombo";
-            this.userNameCombo.Size = new System.Drawing.Size(149, 21);
+            this.userNameCombo.Size = new System.Drawing.Size(219, 21);
             this.userNameCombo.TabIndex = 2;
             // 
             // label1
@@ -295,7 +295,7 @@ namespace wolfPack_Assign2
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.81132F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label1.Location = new System.Drawing.Point(127, 22);
+            this.label1.Location = new System.Drawing.Point(105, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(286, 44);
             this.label1.TabIndex = 1;

@@ -14,7 +14,7 @@ namespace wolfPack_Assign2
 {
     public partial class Form1 : Form
     {
-        protected static SortedDictionary<uint, String> usersMap = new SortedDictionary<uint, String>();
+        protected static SortedDictionary<uint, User> usersMap = new SortedDictionary<uint, User>();
         protected static SortedDictionary<uint, String> subMap = new SortedDictionary<uint, String>();
         protected static SortedDictionary<uint, String> postMap = new SortedDictionary<uint, String>();
         protected static SortedDictionary<uint, String> comMap = new SortedDictionary<uint, String>();
@@ -40,6 +40,7 @@ namespace wolfPack_Assign2
         {
             InitializeComponent();
             readData();
+
             addData();
         }
 
@@ -60,12 +61,12 @@ namespace wolfPack_Assign2
 
                     while (lineRead != null)
                     {
-
                         string[] tokens = lineRead.Split('\t');
+                        uint id = Convert.ToUInt32(tokens[0]);
 
                         //parse all tokens into dictionary + array of all ID's
-                        usersMap.Add(Convert.ToUInt32(tokens[0]), lineRead);
-
+                        usersMap[id] = new User(tokens);
+                        globalIds.Add(id);
 
                         lineRead = inFile.ReadLine();
                     }
@@ -157,6 +158,11 @@ namespace wolfPack_Assign2
 
         }
 
+
+        // Method:  addData()
+        // Purpose: adds the data from the Dictionaries to their components on the form
+        // Params: N/A
+        // Returns: N/A
         public void addData()
         {
 
@@ -202,6 +208,7 @@ namespace wolfPack_Assign2
             return true;
         }
 
+
         // Method:  genId()
         // Purpose: generate completely unique ID if needed
         // Params: N/A
@@ -222,6 +229,7 @@ namespace wolfPack_Assign2
             globalIds.Add(id);
             return id;
         }
+
 
         // Method:  validateName(string name)
         // Purpose: verifies given name is within criteria for reddit names

@@ -119,7 +119,7 @@ namespace wolfPack_Assign2
 
         public uint UserType
         {
-            get { return UserType; }
+            get { return userType; }
             set { userType = value; }
         }
 
@@ -167,7 +167,7 @@ namespace wolfPack_Assign2
                 userType = "(A)";
             }
 
-            return String.Format("{0, -27} {1} ({2}/{3})", Name, userType, PostScore, CommentScore);
+            return String.Format("{0, -10}  {1}   ({2}/{3})", Name, userType, PostScore, CommentScore);
 
         }
     }
