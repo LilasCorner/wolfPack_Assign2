@@ -331,7 +331,16 @@ namespace wolfPack_Assign2
             if (userNameCombo.SelectedIndex != -1) //no username selected
             {
                 selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
+                sysOutputTextBox.AppendText("Please login.");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+                clearListBoxes();
             }
+        }
+
+        public void clearListBoxes()
+        {
+            subredditListBox.Items.Clear();
+            postListBox.Items.Clear();
         }
 
         //FIX LATER NEED DOC BOX
@@ -379,6 +388,8 @@ namespace wolfPack_Assign2
                 string[] user = selectedUser.Split(' ');
                 sysOutputTextBox.AppendText("Login successful. Hello " + user[0] + "!");
                 sysOutputTextBox.AppendText(Environment.NewLine);
+                sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
+                sysOutputTextBox.AppendText(Environment.NewLine);
                 populatePosts();
                 populateComments();
             }
@@ -402,6 +413,7 @@ namespace wolfPack_Assign2
         {
             if(subredditListBox.SelectedIndex != -1)
             {
+                clearListBoxes();
                 selectedSub = subredditListBox.Items[subredditListBox.SelectedIndex].ToString();
                 uint index = nameToId(selectedSub, 2);
                 memberLabel.Text = subMap[index].Members.ToString();

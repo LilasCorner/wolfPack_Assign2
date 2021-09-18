@@ -117,6 +117,11 @@ namespace wolfPack_Assign2
 
         }
 
+        public List<String> ModSubs
+        {
+            get { return modSubs; }
+
+        }
         public uint UserType
         {
             get { return userType; }
