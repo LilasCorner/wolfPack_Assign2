@@ -156,7 +156,18 @@ namespace wolfPack_Assign2
 
         public override string ToString()
         {
-            return "\n\t" + id + ": " + name + ", Post Score= " + postScore + ", Comment Score= " + commentScore + "\n";
+            string userType = "";
+
+            if (UserType == 1)
+            {
+                userType = "(M)";
+            }
+            else if(UserType == 2)
+            {
+                userType = "(A)";
+            }
+
+            return String.Format("{0, -27} {1} ({2}/{3})", Name, userType, PostScore, CommentScore);
 
         }
     }
