@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,23 @@ namespace wolfPack_Assign2
         protected static SortedDictionary<uint, String> subMap = new SortedDictionary<uint, String>();
         protected static SortedDictionary<uint, String> postMap = new SortedDictionary<uint, String>();
         protected static SortedDictionary<uint, String> comMap = new SortedDictionary<uint, String>();
+        public static ArrayList globalIds = new ArrayList();
+
+        public const int GOOD_EXIT = 1;
+        public const int SUB_INDEX = 4;
+        public const int POST_INDEX = 14;
+        public const int COM_INDEX = 12;
+        public const int USER_INDEX = 6;
+
+
+        enum badWords
+        {
+            fudge,
+            shoot,
+            baddie,
+            butthead
+        }
+
 
         public Form1()
         {
@@ -164,8 +182,100 @@ namespace wolfPack_Assign2
 
 
         }
+
+        // Method:  UniqueId(uint id)
+        // Purpose: verifies given ID is completely unique across all classes
+        // Params: uint id, the id we want to verify
+        // Returns: true if id is unique, false if it is duplicate
+        static public bool UniqueId(uint id)
+        {
+            //sort globalId array
+            globalIds.Sort();
+            int flag = globalIds.BinarySearch(id);
+
+            //binary search array for duplicates -- if we got -1, id is good, positive number is bad!
+            if (flag > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // Method:  genId()
+        // Purpose: generate completely unique ID if needed
+        // Params: N/A
+        // Returns: uint of new ID
+        static public uint genId()
+        {
+            //create random num 0-9999
+            Random random = new Random();
+
+            uint id = Convert.ToUInt32(random.Next(0, 10000));
+
+            //if id generated is invalid, loop until we generate a valid one
+            while (UniqueId(id) == false)
+            {
+                id = Convert.ToUInt32(random.Next(0, 10000));
+            }
+
+            globalIds.Add(id);
+            return id;
+        }
+
+        // Method:  validateName(string name)
+        // Purpose: verifies given name is within criteria for reddit names
+        // Params: string name, the name we're going to check
+        // Returns: true if name is valid, false if it's bad
+        public static bool validateName(string name, int min, int max)
+        {
+            //both these will = true if white space located, we want false value ideally
+            bool first = char.IsWhiteSpace(name[0]);
+            bool last = char.IsWhiteSpace(name[name.Length - 1]);
+
+            //perform validation of name has to be char >5 && <21 && cannot begin/end with space characters
+
+            if (name.Length < min || name.Length > max || first || last || findBadWords(name))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        // Method:  findBadWords(string str)
+        // Purpose: checks if given string has a bad word
+        // Params: string str, the string we're going to check
+        // Returns: throws exception if string has badword, false if no badword found
+        public static bool findBadWords(string str)
+        {
+            try
+            {
+                foreach (string word in Enum.GetNames(typeof(badWords)))
+                {
+                    if (str.Contains(word))
+                    {
+
+                        throw new FoulLanguageException();
+
+                    }
+
+                }
+
+            }
+            catch (FoulLanguageException e)
+            {
+                Console.WriteLine(e.ToString());
+
+            }
+
+            return false;
+        }
+
+
     }
- }
+}
 
 
 
