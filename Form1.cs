@@ -26,6 +26,7 @@ namespace wolfPack_Assign2
         public const int COM_INDEX = 12;
         public const int USER_INDEX = 6;
 
+        protected static string selectedUser = "";
 
         enum badWords
         {
@@ -281,7 +282,10 @@ namespace wolfPack_Assign2
             return false;
         }
 
-
+        private void userNameCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
+        }
     }
 }
 

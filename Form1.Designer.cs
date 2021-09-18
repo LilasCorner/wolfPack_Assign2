@@ -287,7 +287,9 @@ namespace wolfPack_Assign2
             this.userNameCombo.Location = new System.Drawing.Point(412, 32);
             this.userNameCombo.Name = "userNameCombo";
             this.userNameCombo.Size = new System.Drawing.Size(219, 21);
+            this.userNameCombo.Sorted = true;
             this.userNameCombo.TabIndex = 2;
+            this.userNameCombo.SelectedIndexChanged += new System.EventHandler(this.userNameCombo_SelectedIndexChanged);
             // 
             // label1
             // 
