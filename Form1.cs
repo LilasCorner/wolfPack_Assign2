@@ -47,8 +47,6 @@ namespace wolfPack_Assign2
         }
 
         //FIX LATER NEED DOC BOX
-        //FIX LATER NEEDS IMPLEMENTATION FOR POSTS CLASS DICTIONARY, COMMENT CLASS DICTIONARY
-        // right now it just reads the string into the dictionary, it does not actually create the object
         public void readData()
         {
             string lineRead = "";
