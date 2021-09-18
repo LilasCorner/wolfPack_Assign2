@@ -338,11 +338,25 @@ namespace wolfPack_Assign2
             //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         }
 
+        public bool loginCheck(string user, string pass)
+        {
+            uint id = nameToId(user, "user");
+            MessageBox.Show(id.ToString());
+            string attempt = pass.GetHashCode().ToString("X");
+            string correct = usersMap[id].PassHash;
+
+            if (correct.Equals(attempt))
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         //FIX LATER NEED DOC BOX
         private void loginButton_Click(object sender, EventArgs e)
         {
-            if (User.loginCheck(passwordTextBox.Text))
+            if (loginCheck(selectedUser, passwordTextBox.Text))
             {
                 sysOutputTextBox.AppendText("Login successful.");
                 sysOutputTextBox.AppendText(Environment.NewLine);
@@ -378,7 +392,6 @@ namespace wolfPack_Assign2
                 memberLabel.Visible = true;
                 activeLabel.Text = subMap[index].Active.ToString();
                 activeLabel.Visible = true;
-
             }
 
         }

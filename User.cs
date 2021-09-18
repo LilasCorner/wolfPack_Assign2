@@ -137,7 +137,7 @@ namespace wolfPack_Assign2
             }
         }
 
-        public static string PassHash
+        public string PassHash
         {
             get { return passHash; }
 
@@ -158,17 +158,7 @@ namespace wolfPack_Assign2
 
         public int TotalScore => commentScore + postScore;
 
-        public static bool loginCheck(string pass)
-        {
-            string attempt = pass.GetHashCode().ToString("X");
-            string correct = PassHash;
 
-            if(correct.Equals(attempt))
-            {
-                return true;
-            }
-            return false;
-        }
 
         public override string ToString()
         {
