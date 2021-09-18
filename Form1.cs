@@ -184,19 +184,21 @@ namespace wolfPack_Assign2
         }
 
         //FIX LATER NEED DOC BOX
-        public uint nameToId(string name, string dictionary)
+        public uint nameToId(string name, int dictionary)
         {
-            if (dictionary.Equals("user"))
+            if (dictionary == 1)
             {
-                foreach(var item in usersMap.Keys)
+
+                foreach (var item in usersMap.Keys)
                 {
                     if (usersMap[item].Name.Equals(name))
                     {
                         return item;
                     }
                 }
+
             }
-            if (dictionary.Equals("sub"))
+            else if (dictionary == 2 )
             {
                 foreach (var item in subMap.Keys)
                 {
@@ -218,13 +220,11 @@ namespace wolfPack_Assign2
             {
                 return 0;
             }
-
-            if (subMap.ContainsKey(id)) // SUBREDDIT
+            else if (subMap.ContainsKey(id)) // SUBREDDIT
             {
                 return 1;
             }
-
-            if (postMap.ContainsKey(id)) //POST
+            else if (postMap.ContainsKey(id)) //POST
             {
                 return 2;
             }
@@ -340,7 +340,9 @@ namespace wolfPack_Assign2
 
         public bool loginCheck(string user, string pass)
         {
-            uint id = nameToId(user, "user");
+
+            string[] users = user.Split(' ');
+            uint id = nameToId(users[0], 1);
             MessageBox.Show(id.ToString());
             string attempt = pass.GetHashCode().ToString("X");
             string correct = usersMap[id].PassHash;
@@ -356,24 +358,25 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void loginButton_Click(object sender, EventArgs e)
         {
-            if (loginCheck(selectedUser, passwordTextBox.Text))
-            {
-                sysOutputTextBox.AppendText("Login successful.");
-                sysOutputTextBox.AppendText(Environment.NewLine);
-                populateComments();
-            }
-            else if(userNameCombo.SelectedIndex == -1)
+            
+            if(userNameCombo.SelectedIndex == -1) //no username selected
             {
                 sysOutputTextBox.AppendText("Please select a user and type their password.");
                 sysOutputTextBox.AppendText(Environment.NewLine);
             }
-            else if (String.IsNullOrEmpty(passwordTextBox.Text))
+            else if (String.IsNullOrEmpty(passwordTextBox.Text)) //no password typed
             {
                 string[] user = selectedUser.Split(' ');
                 sysOutputTextBox.AppendText("Please type the password for user "+ user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
             }
-            else
+            else if (loginCheck(selectedUser, passwordTextBox.Text)) //try verify login details
+            {
+                sysOutputTextBox.AppendText("Login successful.");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+                populateComments();
+            }
+            else //failed password
             {
                 string[] user = selectedUser.Split(' ');
                 sysOutputTextBox.AppendText("Invalid password for user: " + user[0] + "  - Action Failed.");
@@ -387,7 +390,7 @@ namespace wolfPack_Assign2
             if(subredditListBox.SelectedIndex != -1)
             {
                 selectedSub = subredditListBox.Items[subredditListBox.SelectedIndex].ToString();
-                uint index = nameToId(selectedSub, "sub");
+                uint index = nameToId(selectedSub, 2);
                 memberLabel.Text = subMap[index].Members.ToString();
                 memberLabel.Visible = true;
                 activeLabel.Text = subMap[index].Active.ToString();
