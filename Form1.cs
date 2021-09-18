@@ -14,21 +14,21 @@ namespace wolfPack_Assign2
 {
     public partial class Form1 : Form
     {
-        protected static SortedDictionary<uint, User> usersMap = new SortedDictionary<uint, User>();
-        protected static SortedDictionary<uint, Subreddit> subMap = new SortedDictionary<uint, Subreddit>();
-        protected static SortedDictionary<uint, String> postMap = new SortedDictionary<uint, String>();
-        protected static SortedDictionary<uint, String> comMap = new SortedDictionary<uint, String>();
+        public static SortedDictionary<uint, User> usersMap = new SortedDictionary<uint, User>();
+        public static SortedDictionary<uint, Subreddit> subMap = new SortedDictionary<uint, Subreddit>();
+        public static SortedDictionary<uint, Post> postMap = new SortedDictionary<uint, Post>();
+        public static SortedDictionary<uint, Comment> comMap = new SortedDictionary<uint, Comment>();
         public static ArrayList globalIds = new ArrayList();
 
-        public const int GOOD_EXIT = 1;
         public const int SUB_INDEX = 4;
-        public const int POST_INDEX = 14;
+        public const int POST_INDEX = 15;
         public const int COM_INDEX = 12;
         public const int USER_INDEX = 6;
 
         protected static string selectedUser = "";
         protected static string selectedSub = "";
-
+        protected static string selectedPost = "";
+        protected static string selectedCom = "";
 
         enum badWords
         {
@@ -119,12 +119,12 @@ namespace wolfPack_Assign2
 
                     while (lineRead != null)
                     {
-
                         string[] tokens = lineRead.Split('\t');
+                        uint id = Convert.ToUInt32(tokens[1]);
 
                         //parse all tokens into dictionary + array of all ID's
-                        postMap.Add(Convert.ToUInt32(tokens[1]), lineRead);
-
+                        postMap[id] = new Post(tokens) ;
+                        globalIds.Add(id);
 
                         lineRead = inFile.ReadLine();
                     }
@@ -148,9 +148,11 @@ namespace wolfPack_Assign2
                     {
 
                         string[] tokens = lineRead.Split('\t');
+                        uint id = Convert.ToUInt32(tokens[0]);
 
                         //parse all tokens into dictionary + array of all ID's
-                        comMap.Add(Convert.ToUInt32(tokens[0]), lineRead);
+                        comMap.Add(Convert.ToUInt32(tokens[0]), new Comment(tokens));
+                        globalIds.Add(id);
 
 
                         lineRead = inFile.ReadLine();
@@ -341,6 +343,7 @@ namespace wolfPack_Assign2
             //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         }
 
+        //FIX LATER NEED DOC BOX
         public bool loginCheck(string user, string pass)
         {
 
@@ -375,8 +378,10 @@ namespace wolfPack_Assign2
             }
             else if (loginCheck(selectedUser, passwordTextBox.Text)) //try verify login details
             {
-                sysOutputTextBox.AppendText("Login successful.");
+                string[] user = selectedUser.Split(' ');
+                sysOutputTextBox.AppendText("Login successful. Hello " + user[0] + "!");
                 sysOutputTextBox.AppendText(Environment.NewLine);
+                populatePosts();
                 populateComments();
             }
             else //failed password
@@ -388,6 +393,13 @@ namespace wolfPack_Assign2
             }
         }
 
+
+        //FIX LATER needs implementing + doc box
+        private void populatePosts()
+        {
+        }
+
+        //FIX LATER NEED DOC BOX
         private void subredditListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(subredditListBox.SelectedIndex != -1)
