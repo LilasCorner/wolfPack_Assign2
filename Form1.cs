@@ -328,7 +328,10 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void userNameCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
+            if (userNameCombo.SelectedIndex != -1) //no username selected
+            {
+                selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
+            }
         }
 
         //FIX LATER NEED DOC BOX
@@ -342,12 +345,18 @@ namespace wolfPack_Assign2
         {
 
             string[] users = user.Split(' ');
+            MessageBox.Show(user);
+
             uint id = nameToId(users[0], 1);
             MessageBox.Show(id.ToString());
-            string attempt = pass.GetHashCode().ToString("X");
-            string correct = usersMap[id].PassHash;
 
-            if (correct.Equals(attempt))
+            string attempt = pass.GetHashCode().ToString("X");
+            MessageBox.Show(attempt);
+            string correct = usersMap[id].PassHash;
+            MessageBox.Show(correct);
+
+
+            if (correct == attempt)
             {
                 return true;
             }

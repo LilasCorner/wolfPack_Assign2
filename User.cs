@@ -25,7 +25,7 @@ namespace wolfPack_Assign2
         private uint userType=0;
         private int postScore;
         private int commentScore;
-        private static string passHash;
+        private string passHash;
         List<String> modSubs = new List<String>();
 
 
@@ -76,7 +76,7 @@ namespace wolfPack_Assign2
 
                 passHash = tokens[Form1.USER_INDEX - 3];
 
-                PostScore = Convert.ToInt32(tokens[Form1.USER_INDEX - 1]);
+                PostScore = Convert.ToInt32(tokens[Form1.USER_INDEX - 2]);
                 CommentScore = Convert.ToInt32(tokens[Form1.USER_INDEX - 1]);
                 //no moderating subs passed if tokens.length == user_index
             
@@ -101,7 +101,7 @@ namespace wolfPack_Assign2
                 PostScore = Convert.ToInt32(tokens[tokens.Length - tokens.Length + 4]);
                 CommentScore = Convert.ToInt32(tokens[tokens.Length - tokens.Length + 5]);
 
-                for(int i = 0; i < tokens.Length- Form1.USER_INDEX; i++)
+                for(int i = 0; i < tokens.Length - Form1.USER_INDEX; i++)
                 {
                     modSubs.Add(tokens[Form1.USER_INDEX + i]);
                 }
