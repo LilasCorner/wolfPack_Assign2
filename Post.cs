@@ -35,8 +35,6 @@ namespace wolfPack_Assign2
 
         private List<Comment> postComments = new List<Comment>(); 
         
-
-
         public Post()
         {
             locked = false;
