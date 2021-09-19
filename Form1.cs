@@ -184,7 +184,7 @@ namespace wolfPack_Assign2
         }
 
         //FIX LATER NEED DOC BOX
-        public uint nameToId(string name, int dictionary)
+        public uint nameToId(string name, uint dictionary)
         {
             if (dictionary == 1)
             {
@@ -390,7 +390,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
-                populatePosts();
+                populatePosts(user.ToString(),0);
                 populateComments();
             }
             else //failed password
@@ -404,8 +404,24 @@ namespace wolfPack_Assign2
 
 
         //FIX LATER needs implementing + doc box
-        private void populatePosts()
+        private void populatePosts(string parentName,uint map)
         {
+            uint parentId = nameToId(parentName, map); 
+            if(whatAmI(map) == 0)
+            {
+                foreach(var index in usersMap.Keys)
+                {
+                    postListBox.Items.Add(parentId == Post.AuthorId);
+                }
+            }
+            else if(whatAmI(map) == 1)
+            {
+                foreach(var index in subMap.Keys)
+                {
+                    postListBox.Items.Add(parentId == Post.AuthorId);
+                }
+            }
+
         }
 
         //FIX LATER NEED DOC BOX
