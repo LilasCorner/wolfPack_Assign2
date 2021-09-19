@@ -382,6 +382,8 @@ namespace wolfPack_Assign2
                 string[] user = selectedUser.Split(' ');
                 sysOutputTextBox.AppendText("Please type the password for user "+ user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
+                passwordTextBox.Clear();
+
             }
             else if (loginCheck(selectedUser, passwordTextBox.Text)) //try verify login details
             {
@@ -390,6 +392,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
+                passwordTextBox.Clear();
                 populatePosts(user.ToString(),0);
                 populateComments();
             }
@@ -399,6 +402,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText("Invalid password for user: " + user[0] + "  - Action Failed.");
                 sysOutputTextBox.AppendText(Environment.NewLine); 
                 loginButton.Text = "Retry Password";
+                passwordTextBox.Clear();
             }
         }
 
