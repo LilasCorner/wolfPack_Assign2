@@ -339,7 +339,7 @@ namespace wolfPack_Assign2
 
         public void clearListBoxes()
         {
-            subredditListBox.Items.Clear();
+            commentListBox.Items.Clear();
             postListBox.Items.Clear();
         }
 
