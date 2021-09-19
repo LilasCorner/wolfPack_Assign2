@@ -393,7 +393,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 passwordTextBox.Clear();
-                populatePosts(user.ToString(),0);
+                populatePosts(user[0], 1);
                 populateComments();
             }
             else //failed password
@@ -408,15 +408,21 @@ namespace wolfPack_Assign2
 
 
         //FIX LATER needs implementing + doc box
-        private void populatePosts(string parentName,uint map)
+        private void populatePosts(string parentName, uint map)
         {
             uint parentId = nameToId(parentName, map);
+
             foreach (var item in postMap.Keys)
             {
                 if(postMap[item].AuthorId == parentId)
                 {
-                    postListBox.Items.Add(postMap[item]);
+                    postListBox.Items.Add(postMap[item].ToString());
                 }
+            }
+
+            if(postListBox.Items.Count == 0)
+            {
+                postListBox.Items.Add("Wow, such empty!");
             }
 
         }
