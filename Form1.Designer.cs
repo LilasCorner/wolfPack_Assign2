@@ -343,6 +343,7 @@ namespace wolfPack_Assign2
             this.Controls.Add(this.postListBox);
             this.Controls.Add(this.subredditListBox);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "wolfPack_Assign2";
             this.panel1.ResumeLayout(false);
