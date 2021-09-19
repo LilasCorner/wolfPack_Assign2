@@ -442,6 +442,7 @@ namespace wolfPack_Assign2
 
 
             }
+            populatePosts(selectedSub,2);
 
         }
     }
