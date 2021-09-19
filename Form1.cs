@@ -406,19 +406,12 @@ namespace wolfPack_Assign2
         //FIX LATER needs implementing + doc box
         private void populatePosts(string parentName,uint map)
         {
-            uint parentId = nameToId(parentName, map); 
-            if(whatAmI(map) == 0)
+            uint parentId = nameToId(parentName, map);
+            foreach (var item in postMap.Keys)
             {
-                foreach(var index in usersMap.Keys)
+                if(postMap[item].AuthorId == parentId)
                 {
-                    postListBox.Items.Add(parentId == Post.AuthorId);
-                }
-            }
-            else if(whatAmI(map) == 1)
-            {
-                foreach(var index in subMap.Keys)
-                {
-                    postListBox.Items.Add(parentId == Post.AuthorId);
+                    postListBox.Items.Add(postMap[item]);
                 }
             }
 
