@@ -548,11 +548,27 @@ namespace wolfPack_Assign2
         {
             if(postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
-                selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
-                postListBox.Items.RemoveAt(postListBox.SelectedIndex);
-                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
-                postMap.Remove(_id);
 
+                selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
+                uint user = nameToId(selectedUser,1);
+                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
+
+
+                if(postMap[_id].AuthorId == user)
+                {
+                     postListBox.Items.RemoveAt(postListBox.SelectedIndex);
+                    postMap.Remove(_id);
+
+                    sysOutputTextBox.AppendText("Post successfully deleted!");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                }
+                else
+                {
+                    sysOutputTextBox.AppendText("You cannot delete other user's posts");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                }
+
+               
             }
         }
 
