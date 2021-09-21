@@ -14,6 +14,11 @@ namespace wolfPack_Assign2
 {
     public partial class Form1 : Form
     {
+        protected static string selectedUser = "";
+        protected static string selectedSub = "";
+        protected static string selectedPost = "";
+        protected static string selectedCom = "";
+
         public static SortedDictionary<uint, User> usersMap = new SortedDictionary<uint, User>();
         public static SortedDictionary<uint, Subreddit> subMap = new SortedDictionary<uint, Subreddit>();
         public static SortedDictionary<uint, Post> postMap = new SortedDictionary<uint, Post>();
@@ -24,11 +29,6 @@ namespace wolfPack_Assign2
         public const int POST_INDEX = 15;
         public const int COM_INDEX = 12;
         public const int USER_INDEX = 6;
-
-        protected static string selectedUser = "";
-        protected static string selectedSub = "";
-        protected static string selectedPost = "";
-        protected static string selectedCom = "";
 
         enum badWords
         {
@@ -152,13 +152,14 @@ namespace wolfPack_Assign2
                         id = Convert.ToUInt32(tokens[COM_INDEX - 12]);
                         parent = Convert.ToUInt32(tokens[COM_INDEX - 9]);
                         int what = whatAmI(parent);
-
+                        Comment newCom = new Comment(tokens);
+                        comMap[id] = newCom;
 
 
                         //parse all tokens into dictionary + array of all ID's
                         if (what == 2)//post
                         {
-                            postMap[parent].addComment(new Comment(tokens));
+                            postMap[parent].addComment(newCom);
                         }
                         else if (what == 3)//comment reply
                         {
@@ -168,7 +169,7 @@ namespace wolfPack_Assign2
                                 {
                                     if (index.Id == parent)
                                     {
-                                        index.addComment(new Comment(tokens));
+                                        index.addComment(newCom);
                                     }
                                 }
                             }
@@ -382,18 +383,15 @@ namespace wolfPack_Assign2
             string tabs = "";
 
 
-            foreach (var item in postMap.Keys)
+            foreach (var item in comMap.Keys)
             {
-                foreach (var index in postMap[item].PostComments)
+                if (comMap[item].ParentId == parent)
                 {
-                    if (index.AuthorId == parent)
-                    {
-                        commentListBox.Items.Add(tabs + index.ToString());
-                        commentListBox.Items.Add(Environment.NewLine);
-                        tabs += "\t";
-
-                    }
+                    commentListBox.Items.Add(tabs + comMap[item].ToString());
+                    commentListBox.Items.Add(Environment.NewLine);
+                    tabs += "\t";
                 }
+                
             }
 
             if (commentListBox.Items.Count == 0)//if empty, give user feedback
@@ -614,14 +612,13 @@ namespace wolfPack_Assign2
             {
                 string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
-                commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
                 uint userId = comMap[_id].AuthorId;
 
                 if (selectedUser.Equals(usersMap[userId].Name) || usersMap[userId].UserType == 2)
                 {
-                     commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
-                     comMap.Remove(_id);
+                    comMap.Remove(_id);
+                    commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
 
                     sysOutputTextBox.AppendText("Comment successfully deleted!");
                     sysOutputTextBox.AppendText(Environment.NewLine);
@@ -629,7 +626,7 @@ namespace wolfPack_Assign2
             }
             else
             {
-                  sysOutputTextBox.AppendText("Please login to delete a comment");
+                  sysOutputTextBox.AppendText("Please select a comment, and verify you are logged in");
                   sysOutputTextBox.AppendText(Environment.NewLine);
             }
         }
