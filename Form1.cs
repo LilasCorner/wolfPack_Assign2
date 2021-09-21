@@ -621,19 +621,28 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void deleteCommentButton_Click(object sender, EventArgs e)
         {
+
             if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
                 string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
                 uint userId = comMap[_id].AuthorId;
+                string[] user = selectedUser.Split(' ');
+                uint currentUser = nameToId(user[0], 1);
 
-                if (selectedUser.Equals(usersMap[userId].Name) || usersMap[userId].UserType == 2)
+                if (usersMap[currentUser].Name.Equals(usersMap[userId].Name) || usersMap[currentUser].UserType == 2)
                 {
+
                     comMap.Remove(_id);
                     commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
 
                     sysOutputTextBox.AppendText("Comment successfully deleted!");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                }
+                else
+                {
+                    sysOutputTextBox.AppendText("You may not delete a comment you didn't write");
                     sysOutputTextBox.AppendText(Environment.NewLine);
                 }
             }
@@ -654,7 +663,7 @@ namespace wolfPack_Assign2
                     string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
                     uint parent = Convert.ToUInt32(selectedCom.Substring(1, 4)); //get parent id
                     string response = addReplyTextBox.Text; // get reply content
-                    uint author = nameToId(selectedUser, 1); //get user's id
+                    uint author = nameToId(selectedUser.Substring(1,4), 1); //get user's id
 
 
                     findBadWords(response);
