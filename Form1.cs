@@ -411,29 +411,20 @@ namespace wolfPack_Assign2
         //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
         public void populatePostComments(uint _id)
         {
-            string tabs = "";
-
-
-            foreach (var item in postMap.Keys)
+            
+            foreach(var index in postMap[_id].PostComments)
             {
-                foreach (var index in postMap[item].PostComments)
-                {
-                    if (index.AuthorId == _id)
-                    {
-                        commentListBox.Items.Add(tabs + index.ToString());
-                        commentListBox.Items.Add(Environment.NewLine);
-                        tabs += "\t";
-                    }
-                }
-            }
-
+                commentListBox.Items.Add(index.ToString());
+                commentListBox.Items.Add(Environment.NewLine);
+            }   
+            
+        
             if (commentListBox.Items.Count == 0)//if empty, give user feedback
             {
                 commentListBox.Items.Add("Wow, such empty!");
             }
 
         }
-
 
 
         //FIX LATER NEED DOC BOX
@@ -497,29 +488,34 @@ namespace wolfPack_Assign2
         private void populatePosts(string parentName, uint map)
         {
             uint parentId = nameToId(parentName, map);
-            if (subMap[parentId].Name == "all")
-            {
-                foreach(var item in postMap.Keys) //FIX LATER copy over assignment 1 foreach that ordered everything
+
+            if(subMap.ContainsKey(parentId))
+            { 
+                if (subMap[parentId].Name == "all")
                 {
-                    postListBox.Items.Add(postMap[item].ToStringShort());
-                }
-            }
-            else
-            {
-                foreach (var item in postMap.Keys)
-                {
-                    if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
+                    foreach(var item in postMap.Keys) //FIX LATER copy over assignment 1 foreach that ordered everything
                     {
                         postListBox.Items.Add(postMap[item].ToStringShort());
                     }
                 }
-            }
+                else
+                {
+                    foreach (var item in postMap.Keys)
+                    {
+                        if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
+                        {
+                            postListBox.Items.Add(postMap[item].ToStringShort());
+                        }
+                    }
+                }
 
 
-            if(postListBox.Items.Count == 0)
-            {
-                postListBox.Items.Add("Wow, such empty!");
+                if(postListBox.Items.Count == 0)
+                {
+                    postListBox.Items.Add("Wow, such empty!");
+                }
             }
+            
 
         }
 
@@ -550,6 +546,19 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(postMap[_id].ToString());
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 populatePostComments(_id);
+
+                if (postMap[_id].Locked)
+                {
+                    sysOutputTextBox.AppendText( "Replies disabled for locked posts.");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                    addReplyTextBox.Text = "Replies disabled for locked posts.";
+                    addReplyTextBox.ReadOnly = true;
+                }
+                else
+                {
+                    addReplyTextBox.Clear();
+                    addReplyTextBox.ReadOnly = false;
+                }
             }
             
         }
@@ -642,7 +651,6 @@ namespace wolfPack_Assign2
                         }
                     }
 
-                    //P1.PostComments->C1.commentReply->C2.commentReply->C3.null
 
                 }
                 catch (FoulLanguageException a)

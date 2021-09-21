@@ -1,14 +1,12 @@
-
+Questions:
 
 - should a user be able to delete their own post if it's locked
 - can moderators delete posts that arent theirs, or just lock posts?
-- if "all" subreddit clicked, do we show members/active for all!! subreddits or leave blank like in example
 
 
 ======================
 Todos:
 
-- someone shouldnt be able to add comments to locked posts
 - add replies
 - delete comments -- should only work with own comments
 - posts and comments should be ordered by rating
