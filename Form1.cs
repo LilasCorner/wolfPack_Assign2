@@ -38,7 +38,6 @@ namespace wolfPack_Assign2
             butthead
         }
 
-
         public Form1()
         {
             InitializeComponent();
@@ -190,11 +189,7 @@ namespace wolfPack_Assign2
             #endregion
 
 
-
-
-
         }
-
         
         // Method:  addData()
         // Purpose: adds the data from the Dictionaries to their components on the form
@@ -396,6 +391,7 @@ namespace wolfPack_Assign2
                         commentListBox.Items.Add(tabs + index.ToString());
                         commentListBox.Items.Add(Environment.NewLine);
                         tabs += "\t";
+
                     }
                 }
             }
@@ -425,7 +421,6 @@ namespace wolfPack_Assign2
 
         }
 
-
         //FIX LATER NEED DOC BOX
         public bool loginCheck(string user, string pass)
         {
@@ -442,7 +437,6 @@ namespace wolfPack_Assign2
             }
             return false;
         }
-
 
         //FIX LATER NEED DOC BOX
         private void loginButton_Click(object sender, EventArgs e)
@@ -483,8 +477,7 @@ namespace wolfPack_Assign2
             }
         }
 
-
-        //FIX LATER needs implementing + doc box
+        //FIX LATER  doc box
         private void populatePosts(string parentName, uint map)
         {
             uint parentId = nameToId(parentName, map);
@@ -527,16 +520,27 @@ namespace wolfPack_Assign2
                 clearListBoxes();
                 selectedSub = subredditListBox.Items[subredditListBox.SelectedIndex].ToString();
                 uint index = nameToId(selectedSub, 2);
-                memberLabel.Text = subMap[index].Members.ToString();
-                memberLabel.Visible = true;
-                activeLabel.Text = subMap[index].Active.ToString();
-                activeLabel.Visible = true;
+
+                if(subMap[index].Name != "all")
+                {
+                    memberLabel.Text = subMap[index].Members.ToString();
+                    memberLabel.Visible = true;
+                    activeLabel.Text = subMap[index].Active.ToString();
+                    activeLabel.Visible = true;
+                }
+                else
+                {
+                    memberLabel.Visible = false;
+                    activeLabel.Visible = false;
+                }
+                
             }
             populatePosts(selectedSub,2);
             
 
         }
 
+        //FIX LATER NEED DOC BOX
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
@@ -563,6 +567,7 @@ namespace wolfPack_Assign2
             
         }
 
+        //FIX LATER NEED DOC BOX
         private void deletePostButton_Click(object sender, EventArgs e)
         {
             if(postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
@@ -602,9 +607,10 @@ namespace wolfPack_Assign2
             }
         }
 
+        //FIX LATER NEED DOC BOX
         private void deleteCommentButton_Click(object sender, EventArgs e)
         {
-            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
+            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
                 string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
@@ -614,33 +620,21 @@ namespace wolfPack_Assign2
 
                 if (selectedUser.Equals(usersMap[userId].Name) || usersMap[userId].UserType == 2)
                 {
-                    foreach(var item in postMap.Keys)
-                    {
-                        /*
-                        foreach(var index in postMap[item].PostComments)
-                        {
-                            if(index.Id == _id)
-                            {
-                                postMap[item].PostComments.Remove(index);
-                            }
+                     commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
+                     comMap.Remove(_id);
 
-                            foreach (var com in postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies)
-                            {
-                                if (com.Id == _id)
-                                {
-                                    postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies.Remove(com);
-                                }
-                            }
-                        }
-                        */
-                    }
+                    sysOutputTextBox.AppendText("Comment successfully deleted!");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
                 }
-
-             
-
+            }
+            else
+            {
+                  sysOutputTextBox.AppendText("Please login to delete a comment");
+                  sysOutputTextBox.AppendText(Environment.NewLine);
             }
         }
 
+        //FIX LATER NEED DOC BOX
         private void addReplyButton_Click(object sender, EventArgs e)
         {
             if (commentListBox.SelectedIndex != -1 && commentListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!" && selectedUser!="")
