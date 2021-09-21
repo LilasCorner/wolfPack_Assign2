@@ -253,6 +253,8 @@ namespace wolfPack_Assign2
         public string ToStringShort()
         {
             string shortTitle = "";
+            string locked = "";
+
             if (Title.Length > 35)
             {
                 shortTitle = Title.Substring(0, 35) + "...";
@@ -262,7 +264,12 @@ namespace wolfPack_Assign2
                 shortTitle = Title;
             }
 
-            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + shortTitle  + " - " + " |" + timeStamp + "| \n";
+            if (Locked)
+            {
+                locked = "**LOCKED**";
+            }
+
+            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + shortTitle  + " " + locked + " - " + Form1.usersMap[authorId].Name + " |" + timeStamp + "| \n";
         }
 
 
