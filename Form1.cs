@@ -381,7 +381,6 @@ namespace wolfPack_Assign2
         }
 
         //FIX LATER NEED DOC BOX
-        //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
         public void populateComments(string parentName, uint map)
         {
             uint parent = nameToId(parentName, map);
@@ -408,6 +407,34 @@ namespace wolfPack_Assign2
 
         }
 
+        //FIX LATER NEED DOC BOX
+        //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
+        public void populatePostComments(uint _id)
+        {
+            string tabs = "";
+
+
+            foreach (var item in postMap.Keys)
+            {
+                foreach (var index in postMap[item].PostComments)
+                {
+                    if (index.AuthorId == _id)
+                    {
+                        commentListBox.Items.Add(tabs + index.ToString());
+                        commentListBox.Items.Add(Environment.NewLine);
+                        tabs += "\t";
+                    }
+                }
+            }
+
+            if (commentListBox.Items.Count == 0)//if empty, give user feedback
+            {
+                commentListBox.Items.Add("Wow, such empty!");
+            }
+
+        }
+
+
 
         //FIX LATER NEED DOC BOX
         public bool loginCheck(string user, string pass)
@@ -430,7 +457,7 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void loginButton_Click(object sender, EventArgs e)
         {
-            
+            clearListBoxes(); 
             if(userNameCombo.SelectedIndex == -1) //no username selected
             {
                 sysOutputTextBox.AppendText("Please select a user and type their password.");
@@ -501,17 +528,19 @@ namespace wolfPack_Assign2
 
             }
             populatePosts(selectedSub,2);
+            
 
         }
 
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (subredditListBox.SelectedIndex != -1)
+            if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
                 selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
                 uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
                 sysOutputTextBox.AppendText(postMap[_id].ToString());
                 sysOutputTextBox.AppendText(Environment.NewLine);
+                populatePostComments(_id);
             }
         }
     }
