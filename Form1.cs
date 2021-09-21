@@ -543,6 +543,20 @@ namespace wolfPack_Assign2
                 populatePostComments(_id);
             }
         }
+
+        private void deletePostButton_Click(object sender, EventArgs e)
+        {
+            if(postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
+            {
+                selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
+                postListBox.Items.RemoveAt(postListBox.SelectedIndex);
+                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
+                postMap.Remove(_id);
+
+            }
+        }
+
+
     }
 }
 

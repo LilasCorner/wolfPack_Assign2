@@ -204,6 +204,7 @@ namespace wolfPack_Assign2
             this.deletePostButton.TabIndex = 21;
             this.deletePostButton.Text = "Delete Post";
             this.deletePostButton.UseVisualStyleBackColor = true;
+            this.deletePostButton.Click += new System.EventHandler(this.deletePostButton_Click);
             // 
             // postListBox
             // 
