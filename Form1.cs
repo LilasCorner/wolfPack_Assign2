@@ -464,6 +464,7 @@ namespace wolfPack_Assign2
             else if (loginCheck(selectedUser, passwordTextBox.Text)) //try verify login details
             {
                 string[] user = selectedUser.Split(' ');
+
                 sysOutputTextBox.AppendText("Login successful. Hello " + user[0] + "!");
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
@@ -568,23 +569,34 @@ namespace wolfPack_Assign2
             {
 
                 selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
-                uint user = nameToId(selectedUser,1);
+                string[] users = selectedUser.Split(' ');
+
+                uint user = nameToId(users[0],1);
                 uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
 
-
-                if(postMap[_id].AuthorId == user || usersMap[user].UserType == 2)
+                if(selectedUser != "")
                 {
-                    postListBox.Items.RemoveAt(postListBox.SelectedIndex);
-                    postMap.Remove(_id);
+                     if(postMap[_id].AuthorId == user || usersMap[user].UserType == 2)
+                    {
+                        postListBox.Items.RemoveAt(postListBox.SelectedIndex);
+                        postMap.Remove(_id);
 
-                    sysOutputTextBox.AppendText("Post successfully deleted!");
-                    sysOutputTextBox.AppendText(Environment.NewLine);
+                        sysOutputTextBox.AppendText("Post successfully deleted!");
+                        sysOutputTextBox.AppendText(Environment.NewLine);
+                    }
+                    else
+                    {
+                        sysOutputTextBox.AppendText("You cannot delete other user's posts");
+                        sysOutputTextBox.AppendText(Environment.NewLine);
+                    }
                 }
                 else
                 {
-                    sysOutputTextBox.AppendText("You cannot delete other user's posts");
+                    sysOutputTextBox.AppendText("Please log in to delete a post");
                     sysOutputTextBox.AppendText(Environment.NewLine);
                 }
+
+               
 
                
             }
@@ -598,25 +610,33 @@ namespace wolfPack_Assign2
 
                 commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
+                uint userId = comMap[_id].AuthorId;
 
-                foreach(var item in postMap.Keys)
+                if (selectedUser.Equals(usersMap[userId].Name) || usersMap[userId].UserType == 2)
                 {
-                    foreach(var index in postMap[item].PostComments)
+                    foreach(var item in postMap.Keys)
                     {
-                        if(index.Id == _id)
+                        /*
+                        foreach(var index in postMap[item].PostComments)
                         {
-                            postMap[item].PostComments.Remove(index);
-                        }
-
-                        foreach (var com in postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies)
-                        {
-                            if (com.Id == _id)
+                            if(index.Id == _id)
                             {
-                                postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies.Remove(com);
+                                postMap[item].PostComments.Remove(index);
+                            }
+
+                            foreach (var com in postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies)
+                            {
+                                if (com.Id == _id)
+                                {
+                                    postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies.Remove(com);
+                                }
                             }
                         }
+                        */
                     }
                 }
+
+             
 
             }
         }
