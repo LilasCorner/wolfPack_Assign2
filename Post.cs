@@ -246,9 +246,24 @@ namespace wolfPack_Assign2
         }
         public override string ToString()
         {
-            return "<" + Id + ">" + ": [" + "] " + "(" + Score + ") " + Title + " : " + PostContent + " - " + " |"+ timeStamp +"| \n";
+            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + Title + " : " + PostContent + " - " + " |"+ timeStamp +"| \n";
         }
 
+
+        public string ToStringShort()
+        {
+            string shortTitle = "";
+            if (Title.Length > 35)
+            {
+                shortTitle = Title.Substring(0, 35) + "...";
+            }
+            else
+            {
+                shortTitle = Title;
+            }
+
+            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + shortTitle  + " - " + " |" + timeStamp + "| \n";
+        }
 
 
 

@@ -41,7 +41,6 @@ namespace wolfPack_Assign2
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.sysOutputTextBox = new System.Windows.Forms.TextBox();
-            this.addReplyListBox = new System.Windows.Forms.ListBox();
             this.deleteCommentButton = new System.Windows.Forms.Button();
             this.commentListBox = new System.Windows.Forms.ListBox();
             this.deletePostButton = new System.Windows.Forms.Button();
@@ -55,6 +54,7 @@ namespace wolfPack_Assign2
             this.userNameCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.redditBox = new System.Windows.Forms.PictureBox();
+            this.addReplyTextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.redditBox)).BeginInit();
             this.SuspendLayout();
@@ -177,14 +177,6 @@ namespace wolfPack_Assign2
             this.sysOutputTextBox.Size = new System.Drawing.Size(604, 82);
             this.sysOutputTextBox.TabIndex = 25;
             // 
-            // addReplyListBox
-            // 
-            this.addReplyListBox.FormattingEnabled = true;
-            this.addReplyListBox.Location = new System.Drawing.Point(208, 404);
-            this.addReplyListBox.Name = "addReplyListBox";
-            this.addReplyListBox.Size = new System.Drawing.Size(604, 82);
-            this.addReplyListBox.TabIndex = 24;
-            // 
             // deleteCommentButton
             // 
             this.deleteCommentButton.ForeColor = System.Drawing.Color.Red;
@@ -206,7 +198,7 @@ namespace wolfPack_Assign2
             // deletePostButton
             // 
             this.deletePostButton.ForeColor = System.Drawing.Color.Red;
-            this.deletePostButton.Location = new System.Drawing.Point(681, 252);
+            this.deletePostButton.Location = new System.Drawing.Point(680, 252);
             this.deletePostButton.Name = "deletePostButton";
             this.deletePostButton.Size = new System.Drawing.Size(132, 28);
             this.deletePostButton.TabIndex = 21;
@@ -220,6 +212,7 @@ namespace wolfPack_Assign2
             this.postListBox.Name = "postListBox";
             this.postListBox.Size = new System.Drawing.Size(604, 82);
             this.postListBox.TabIndex = 20;
+            this.postListBox.SelectedIndexChanged += new System.EventHandler(this.postListBox_SelectedIndexChanged);
             // 
             // subredditListBox
             // 
@@ -318,6 +311,14 @@ namespace wolfPack_Assign2
             this.redditBox.TabIndex = 0;
             this.redditBox.TabStop = false;
             // 
+            // addReplyTextBox
+            // 
+            this.addReplyTextBox.Location = new System.Drawing.Point(208, 401);
+            this.addReplyTextBox.Multiline = true;
+            this.addReplyTextBox.Name = "addReplyTextBox";
+            this.addReplyTextBox.Size = new System.Drawing.Size(604, 82);
+            this.addReplyTextBox.TabIndex = 36;
+            // 
             // Form1
             // 
             this.AcceptButton = this.loginButton;
@@ -325,6 +326,7 @@ namespace wolfPack_Assign2
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(824, 643);
+            this.Controls.Add(this.addReplyTextBox);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.memberLabel);
             this.Controls.Add(this.label8);
@@ -336,7 +338,6 @@ namespace wolfPack_Assign2
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sysOutputTextBox);
-            this.Controls.Add(this.addReplyListBox);
             this.Controls.Add(this.deleteCommentButton);
             this.Controls.Add(this.commentListBox);
             this.Controls.Add(this.deletePostButton);
@@ -367,7 +368,6 @@ namespace wolfPack_Assign2
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox sysOutputTextBox;
-        private System.Windows.Forms.ListBox addReplyListBox;
         private System.Windows.Forms.Button deleteCommentButton;
         private System.Windows.Forms.ListBox commentListBox;
         private System.Windows.Forms.Button deletePostButton;
@@ -381,6 +381,7 @@ namespace wolfPack_Assign2
         private System.Windows.Forms.ComboBox userNameCombo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox redditBox;
+        private System.Windows.Forms.TextBox addReplyTextBox;
     }
 }
 

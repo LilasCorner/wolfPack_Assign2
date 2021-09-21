@@ -141,24 +141,57 @@ namespace wolfPack_Assign2
                 using (StreamReader inFile = new StreamReader("..//..//comments.txt"))
                 {
                     lineRead = inFile.ReadLine(); // prime read
+                    uint id = 0;
+                    uint parent = 0;
 
                     while (lineRead != null)
                     {
 
                         string[] tokens = lineRead.Split('\t');
-                        uint id = Convert.ToUInt32(tokens[0]);
+
+
+                        id = Convert.ToUInt32(tokens[COM_INDEX - 12]);
+                        parent = Convert.ToUInt32(tokens[COM_INDEX - 9]);
+                        int what = whatAmI(parent);
+
+
 
                         //parse all tokens into dictionary + array of all ID's
-                        comMap.Add(Convert.ToUInt32(tokens[0]), new Comment(tokens));
+                        if (what == 2)//post
+                        {
+                            postMap[parent].addComment(new Comment(tokens));
+                        }
+                        else if (what == 3)//comment reply
+                        {
+                            foreach (var item in postMap.Keys)
+                            {
+                                foreach (var index in postMap[item].PostComments)
+                                {
+                                    if (index.Id == parent)
+                                    {
+                                        index.addComment(new Comment(tokens));
+                                    }
+                                }
+                            }
+
+                        }
+
+
+
                         globalIds.Add(id);
 
 
+                        //read next line
                         lineRead = inFile.ReadLine();
                     }
                 }
             }
 
             #endregion
+
+
+
+
 
         }
 
@@ -208,7 +241,7 @@ namespace wolfPack_Assign2
                     }
                 }
             }
-            
+
 
             return 0;
         }
@@ -328,6 +361,9 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void userNameCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            passwordTextBox.ReadOnly = false;
+            passwordTextBox.Clear();
+
             if (userNameCombo.SelectedIndex != -1) //no username selected
             {
                 selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
@@ -337,6 +373,7 @@ namespace wolfPack_Assign2
             }
         }
 
+        //FIX LATER NEED DOC BOX
         public void clearListBoxes()
         {
             commentListBox.Items.Clear();
@@ -345,10 +382,32 @@ namespace wolfPack_Assign2
 
         //FIX LATER NEED DOC BOX
         //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
-        public void populateComments()
+        public void populateComments(string parentName, uint map)
         {
-            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            uint parent = nameToId(parentName, map);
+            string tabs = "";
+
+
+            foreach (var item in postMap.Keys)
+            {
+                foreach (var index in postMap[item].PostComments)
+                {
+                    if (index.AuthorId == parent)
+                    {
+                        commentListBox.Items.Add(tabs + index.ToString());
+                        commentListBox.Items.Add(Environment.NewLine);
+                        tabs += "\t";
+                    }
+                }
+            }
+
+            if (commentListBox.Items.Count == 0)//if empty, give user feedback
+            {
+                commentListBox.Items.Add("Wow, such empty!");
+            }
+
         }
+
 
         //FIX LATER NEED DOC BOX
         public bool loginCheck(string user, string pass)
@@ -382,7 +441,7 @@ namespace wolfPack_Assign2
                 string[] user = selectedUser.Split(' ');
                 sysOutputTextBox.AppendText("Please type the password for user "+ user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
-                passwordTextBox.Clear();
+                
 
             }
             else if (loginCheck(selectedUser, passwordTextBox.Text)) //try verify login details
@@ -392,9 +451,9 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
-                passwordTextBox.Clear();
+                passwordTextBox.ReadOnly = true;
                 populatePosts(user[0], 1);
-                populateComments();
+                populateComments(user[0], 1);
             }
             else //failed password
             {
@@ -414,9 +473,9 @@ namespace wolfPack_Assign2
 
             foreach (var item in postMap.Keys)
             {
-                if(postMap[item].AuthorId == parentId)
+                if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
                 {
-                    postListBox.Items.Add(postMap[item].ToString());
+                    postListBox.Items.Add(postMap[item].ToStringShort());
                 }
             }
 
@@ -440,10 +499,20 @@ namespace wolfPack_Assign2
                 activeLabel.Text = subMap[index].Active.ToString();
                 activeLabel.Visible = true;
 
-
             }
             populatePosts(selectedSub,2);
 
+        }
+
+        private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (subredditListBox.SelectedIndex != -1)
+            {
+                selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
+                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
+                sysOutputTextBox.AppendText(postMap[_id].ToString());
+                sysOutputTextBox.AppendText(Environment.NewLine);
+            }
         }
     }
 }
