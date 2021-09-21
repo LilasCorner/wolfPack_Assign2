@@ -387,9 +387,8 @@ namespace wolfPack_Assign2
             {
                 if (comMap[item].ParentId == parent)
                 {
-                    commentListBox.Items.Add(tabs + comMap[item].ToString());
+                    commentListBox.Items.Add(comMap[item].ToString());
                     commentListBox.Items.Add(Environment.NewLine);
-                    tabs += "\t";
                 }
                 
             }
