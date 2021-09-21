@@ -497,14 +497,24 @@ namespace wolfPack_Assign2
         private void populatePosts(string parentName, uint map)
         {
             uint parentId = nameToId(parentName, map);
-
-            foreach (var item in postMap.Keys)
+            if (subMap[parentId].Name == "all")
             {
-                if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
+                foreach(var item in postMap.Keys) //FIX LATER copy over assignment 1 foreach that ordered everything
                 {
                     postListBox.Items.Add(postMap[item].ToStringShort());
                 }
             }
+            else
+            {
+                foreach (var item in postMap.Keys)
+                {
+                    if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
+                    {
+                        postListBox.Items.Add(postMap[item].ToStringShort());
+                    }
+                }
+            }
+
 
             if(postListBox.Items.Count == 0)
             {
@@ -525,7 +535,6 @@ namespace wolfPack_Assign2
                 memberLabel.Visible = true;
                 activeLabel.Text = subMap[index].Active.ToString();
                 activeLabel.Visible = true;
-
             }
             populatePosts(selectedSub,2);
             
@@ -542,6 +551,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 populatePostComments(_id);
             }
+            
         }
 
         private void deletePostButton_Click(object sender, EventArgs e)
