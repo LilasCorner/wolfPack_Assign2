@@ -186,6 +186,7 @@ namespace wolfPack_Assign2
             this.deleteCommentButton.TabIndex = 23;
             this.deleteCommentButton.Text = "Delete Comment";
             this.deleteCommentButton.UseVisualStyleBackColor = true;
+            this.deleteCommentButton.Click += new System.EventHandler(this.deleteCommentButton_Click);
             // 
             // commentListBox
             // 

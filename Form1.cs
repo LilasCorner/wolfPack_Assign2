@@ -556,7 +556,36 @@ namespace wolfPack_Assign2
             }
         }
 
+        private void deleteCommentButton_Click(object sender, EventArgs e)
+        {
+            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
+            {
+                string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
+                commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
+                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
+
+                foreach(var item in postMap.Keys)
+                {
+                    foreach(var index in postMap[item].PostComments)
+                    {
+                        if(index.Id == _id)
+                        {
+                            postMap[item].PostComments.Remove(index);
+                        }
+
+                        foreach (var com in postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies)
+                        {
+                            if (com.Id == _id)
+                            {
+                                postMap[item].PostComments[Convert.ToInt32(index.Id)].CommentReplies.Remove(com);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }
 
