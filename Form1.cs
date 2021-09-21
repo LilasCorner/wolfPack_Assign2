@@ -414,8 +414,7 @@ namespace wolfPack_Assign2
             
             foreach(var index in postMap[_id].PostComments)
             {
-                commentListBox.Items.Add(index.ToString());
-                commentListBox.Items.Add(Environment.NewLine);
+                index.ToString();
             }   
             
         
@@ -573,9 +572,9 @@ namespace wolfPack_Assign2
                 uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
 
 
-                if(postMap[_id].AuthorId == user)
+                if(postMap[_id].AuthorId == user || usersMap[user].UserType == 2)
                 {
-                     postListBox.Items.RemoveAt(postListBox.SelectedIndex);
+                    postListBox.Items.RemoveAt(postListBox.SelectedIndex);
                     postMap.Remove(_id);
 
                     sysOutputTextBox.AppendText("Post successfully deleted!");

@@ -197,11 +197,11 @@ namespace wolfPack_Assign2
         public override string ToString()
         {
             StringBuilder tabs = new StringBuilder();
-            string origin = "<"+Id+">" + " (" + Score + ") " + Content + " - " + Form1.usersMap[AuthorId].Name + " |" + TimeStamp + "| " + Environment.NewLine;
+            string origin = "<"+Id+">" + " (" + Score + ") " + Content + " - " + Form1.usersMap[AuthorId].Name + " |" + TimeStamp + "| \n\n";
 
             foreach (Comment item in commentReplies) {
 
-                tabs.Append( "\t\t<" + item.Id + ">" + " (" + item.Score + ") " + item.Content + " - " + Form1.usersMap[item.AuthorId].Name + " |" + item.TimeStamp + "|" + Environment.NewLine );
+                tabs.Append( "\t\t<" + item.Id + ">" + " (" + item.Score + ") " + item.Content + " - " + Form1.usersMap[item.AuthorId].Name + " |" + item.TimeStamp + "| \n");
             }
 
             return origin + tabs.ToString();
