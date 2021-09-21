@@ -563,7 +563,7 @@ namespace wolfPack_Assign2
                 string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
                 commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
-                uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
+                uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
 
                 foreach(var item in postMap.Keys)
                 {
@@ -586,7 +586,58 @@ namespace wolfPack_Assign2
 
             }
         }
+
+        private void addReplyButton_Click(object sender, EventArgs e)
+        {
+            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!" && selectedUser!="")
+            {
+                try
+                {
+                    string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
+                    uint parent = Convert.ToUInt32(selectedCom.Substring(1, 4)); //get parent id
+                    string response = addReplyTextBox.Text; // get reply content
+                    uint author = nameToId(selectedUser, 1); //get user's id
+
+
+                    findBadWords(response);
+                    
+
+                    Comment temp = new Comment(response, author , parent);
+
+
+                    foreach (var item in postMap.Keys)
+                    {
+                        foreach (var index in postMap[item].PostComments)
+                        {
+                            if (index.Id == parent)
+                            {
+                                index.addComment(temp);
+                            }
+                        }
+                    }
+
+                    //P1.PostComments->C1.commentReply->C2.commentReply->C3.null
+
+                }
+                catch (FoulLanguageException a)
+                {
+                    sysOutputTextBox.AppendText(a.ToString());
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                }
+
+                sysOutputTextBox.AppendText("Comment added successfully!");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+
+            }
+            else
+            {
+                sysOutputTextBox.AppendText("Please select a comment, and verify you are properly logged in.");
+                sysOutputTextBox.AppendText(Environment.NewLine);
+            }
+
+        }
     }
+    
 }
 
 

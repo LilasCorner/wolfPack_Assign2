@@ -35,7 +35,7 @@ namespace wolfPack_Assign2
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.addReplyButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -114,15 +114,16 @@ namespace wolfPack_Assign2
             this.label6.TabIndex = 31;
             this.label6.Text = "Members:";
             // 
-            // button1
+            // addReplyButton
             // 
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1.Location = new System.Drawing.Point(680, 488);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 28);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Add Reply";
-            this.button1.UseVisualStyleBackColor = true;
+            this.addReplyButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.addReplyButton.Location = new System.Drawing.Point(680, 488);
+            this.addReplyButton.Name = "addReplyButton";
+            this.addReplyButton.Size = new System.Drawing.Size(132, 28);
+            this.addReplyButton.TabIndex = 30;
+            this.addReplyButton.Text = "Add Reply";
+            this.addReplyButton.UseVisualStyleBackColor = true;
+            this.addReplyButton.Click += new System.EventHandler(this.addReplyButton_Click);
             // 
             // label5
             // 
@@ -334,7 +335,7 @@ namespace wolfPack_Assign2
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.addReplyButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -364,7 +365,7 @@ namespace wolfPack_Assign2
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button addReplyButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
