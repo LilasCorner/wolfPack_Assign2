@@ -405,11 +405,22 @@ namespace wolfPack_Assign2
         public void populatePostComments(uint _id)
         {
             
-            foreach(var index in postMap[_id].PostComments)
+          
+            foreach (var item in comMap.Keys)
             {
-                index.ToString();
-            }   
-            
+                if (comMap[item].ParentId == _id)
+                {
+                    commentListBox.Items.Add(comMap[item].ToString());
+                    commentListBox.Items.Add(Environment.NewLine);
+
+                    foreach(var index in comMap[item].CommentReplies)
+                    {
+                        commentListBox.Items.Add("\t"+index.ToString());
+                        commentListBox.Items.Add(Environment.NewLine);
+                    }
+                }
+                
+            }
         
             if (commentListBox.Items.Count == 0)//if empty, give user feedback
             {
@@ -461,6 +472,7 @@ namespace wolfPack_Assign2
                 sysOutputTextBox.AppendText("Displaying posts and comments for user " + user[0] + ".");
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 passwordTextBox.ReadOnly = true;
+                loginButton.Text = "Login";
                 populatePosts(user[0], 1);
                 populateComments(user[0], 1);
             }
@@ -540,6 +552,8 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            commentListBox.Items.Clear();
+
             if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
                 selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
