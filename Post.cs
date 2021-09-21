@@ -119,7 +119,7 @@ namespace wolfPack_Assign2
             set { locked = value; }
         }
 
-        public double Score => UpVotes - DownVotes;
+        public double Score => Convert.ToInt32(UpVotes) - Convert.ToInt32(DownVotes);
         public string Title
         {
             get { return title; }
@@ -246,7 +246,7 @@ namespace wolfPack_Assign2
         }
         public override string ToString()
         {
-            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + Title + " : " + PostContent + " - " + " |"+ timeStamp +"| \n";
+            return "<" + Id + ">" + " [" + Form1.subMap[SubHome].Name + "] " + "(" + Score + ") " + Title + " : " + PostContent + " - " + " |"+ timeStamp +"| \n";
         }
 
 
@@ -269,7 +269,7 @@ namespace wolfPack_Assign2
                 locked = "**LOCKED**";
             }
 
-            return "<" + Id + ">" + " [" + SubHome + "] " + "(" + Score + ") " + shortTitle  + " " + locked + " - " + Form1.usersMap[authorId].Name + " |" + timeStamp + "| \n";
+            return "<" + Id + ">" + " [" + Form1.subMap[SubHome].Name + "] " + "(" + Score + ") " + shortTitle  + " " + locked + " - " + Form1.usersMap[authorId].Name + " |" + timeStamp + "| \n";
         }
 
 

@@ -1,15 +1,12 @@
-Questions:
-
-
---ADMINS CAN DELETE ANYTHING, MODERATORS NO, USER CAN DELETE THEIR OWN LOCKED POSTS
---ALL SUBREDDIT SHOULD NOT HAVE ANYTHING
-
-======================
 Todos:
 
-- if user types badword, show message box with foulLnaguage Exception then clear their textbox + add message in sys output textbox
-- add replies
-- delete comments -- should only work with own comments
-- posts and comments should be ordered by rating lollllll
-- subreddits ordered alphabetically
 
+- add replies -- so far can only accept replies to comments not posts
+- if user types badword, show message box with foulLnaguage Exception then clear their textbox + add message in sys output textbox
+- comments should be ordered by rating 
+
+
+
+
+
+ if commentListBox has ANYTHING selected, assume the reply is to the comment, else its a reply to a post

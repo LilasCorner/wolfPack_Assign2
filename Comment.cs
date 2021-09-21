@@ -169,7 +169,7 @@ namespace wolfPack_Assign2
             get { return timeStamp; }
         }
 
-        public uint Score => UpVotes - DownVotes;
+        public int Score => Convert.ToInt32(UpVotes) - Convert.ToInt32(DownVotes);
 
         public int CompareTo(object com)
         {

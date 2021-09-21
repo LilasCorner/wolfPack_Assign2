@@ -204,9 +204,9 @@ namespace wolfPack_Assign2
                 userNameCombo.Items.Add(usersMap[item]);
             }
 
-            foreach (var item in subMap.Keys)
+            foreach (KeyValuePair<uint, Subreddit> item in subMap.OrderBy(key => key.Value))
             {
-                subredditListBox.Items.Add(subMap[item]);
+                subredditListBox.Items.Add(item.Value);
             }
 
 
@@ -380,7 +380,7 @@ namespace wolfPack_Assign2
         public void populateComments(string parentName, uint map)
         {
             uint parent = nameToId(parentName, map);
-            string tabs = "";
+           
 
 
             foreach (var item in comMap.Keys)
@@ -502,11 +502,11 @@ namespace wolfPack_Assign2
                 }
                 else
                 {
-                    foreach (var item in postMap.Keys)
+                    foreach (KeyValuePair<uint, Post> index in postMap.OrderBy(key => key.Value).Reverse()) 
                     {
-                        if(postMap[item].AuthorId == parentId || postMap[item].SubHome == parentId)
+                        if(index.Value.AuthorId == parentId || index.Value.SubHome == parentId)
                         {
-                            postListBox.Items.Add(postMap[item].ToStringShort());
+                            postListBox.Items.Add(index.Value.ToStringShort());
                         }
                     }
                 }
@@ -553,6 +553,7 @@ namespace wolfPack_Assign2
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             commentListBox.Items.Clear();
+            commentListBox.ClearSelected();
 
             if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
@@ -622,7 +623,7 @@ namespace wolfPack_Assign2
         private void deleteCommentButton_Click(object sender, EventArgs e)
         {
 
-            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!")
+            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!" && selectedUser != "")
             {
                 string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
 
@@ -656,51 +657,97 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void addReplyButton_Click(object sender, EventArgs e)
         {
-            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!" && selectedUser!="")
+            if(addReplyTextBox.Text == "")
             {
-                try
-                {
-                    string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
-                    uint parent = Convert.ToUInt32(selectedCom.Substring(1, 4)); //get parent id
-                    string response = addReplyTextBox.Text; // get reply content
-                    uint author = nameToId(selectedUser.Substring(1,4), 1); //get user's id
-
-
-                    findBadWords(response);
-                    
-
-                    Comment temp = new Comment(response, author , parent);
-
-
-                    foreach (var item in postMap.Keys)
-                    {
-                        foreach (var index in postMap[item].PostComments)
-                        {
-                            if (index.Id == parent)
-                            {
-                                index.addComment(temp);
-                            }
-                        }
-                    }
-
-
-                }
-                catch (FoulLanguageException a)
-                {
-                    sysOutputTextBox.AppendText(a.ToString());
-                    sysOutputTextBox.AppendText(Environment.NewLine);
-                }
-
-                sysOutputTextBox.AppendText("Comment added successfully!");
+                sysOutputTextBox.AppendText("Please type the reply you would like to add to either a post or comment");
                 sysOutputTextBox.AppendText(Environment.NewLine);
-
             }
             else
             {
-                sysOutputTextBox.AppendText("Please select a comment, and verify you are properly logged in.");
-                sysOutputTextBox.AppendText(Environment.NewLine);
+
+                if ( ((commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!") || (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")) && selectedUser != "")
+                {
+                    try
+                    {
+                        string selectedMessage = "";
+                        uint parent = 0;
+                        string response = addReplyTextBox.Text; // get reply content
+                        uint author = nameToId(selectedUser.Substring(1, 4), 1); //get user's id
+
+                        if (commentListBox.SelectedIndex != -1)//its a comment
+                        {
+                            selectedMessage = commentListBox.Items[commentListBox.SelectedIndex].ToString();
+                            parent = Convert.ToUInt32(selectedCom.Substring(1, 4)); //get parent id
+                        }
+                        else // its a post
+                        {
+                            selectedMessage = postListBox.Items[postListBox.SelectedIndex].ToString();
+                            parent = Convert.ToUInt32(selectedPost.Substring(1, 4)); //get parent id
+                        }
+
+
+                        findBadWords(response);
+
+
+                        Comment temp = new Comment(response, author, parent);
+
+                        if (postListBox.SelectedIndex != -1)//its a post
+                        {
+                            foreach (var item in postMap.Keys)
+                            {
+                                foreach (var index in postMap[item].PostComments)
+                                {
+                                    if (index.Id == parent)
+                                    {
+                                        index.addComment(temp);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in comMap.Keys)
+                            {
+                                foreach (var index in comMap[item].CommentReplies)
+                                {
+                                    if (index.Id == parent)
+                                    {
+                                        index.addComment(temp);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    catch (FoulLanguageException a)
+                    {
+                        MessageBox.Show(a.ToString());
+                        sysOutputTextBox.AppendText(a.ToString());
+                        sysOutputTextBox.AppendText(Environment.NewLine);
+                    }
+
+                    populatePostComments(Convert.ToUInt32(selectedPost.Substring(1, 4)));
+                    sysOutputTextBox.AppendText("Comment added successfully!");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+
+                }
+                else
+                {
+                    sysOutputTextBox.AppendText("Please select a comment, and verify you are properly logged in.");
+                    sysOutputTextBox.AppendText(Environment.NewLine);
+                }
             }
 
+
+
+        }
+
+        private void commentListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!") {
+                postListBox.ClearSelected();
+                
+            }
         }
     }
     
