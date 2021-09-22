@@ -331,23 +331,15 @@ namespace wolfPack_Assign2
         // Returns: throws exception if string has badword, false if no badword found
         public static bool findBadWords(string str)
         {
-            try
+            
+            foreach (string word in Enum.GetNames(typeof(badWords)))
             {
-                foreach (string word in Enum.GetNames(typeof(badWords)))
+                if (str.Contains(word))
                 {
-                    if (str.Contains(word))
-                    {
 
-                        throw new FoulLanguageException();
-
-                    }
+                    throw new FoulLanguageException();
 
                 }
-
-            }
-            catch (FoulLanguageException e)
-            {
-                Console.WriteLine(e.ToString());
 
             }
 
@@ -383,11 +375,11 @@ namespace wolfPack_Assign2
            
 
 
-            foreach (var item in comMap.Keys)
+            foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
-                if (comMap[item].ParentId == parent)
+                if (item.Value.ParentId == parent)
                 {
-                    commentListBox.Items.Add(comMap[item].ToString());
+                    commentListBox.Items.Add(item.Value.ToString());
                     commentListBox.Items.Add(Environment.NewLine);
                 }
                 
@@ -406,17 +398,23 @@ namespace wolfPack_Assign2
         {
             
           
-            foreach (var item in comMap.Keys)
+            foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
-                if (comMap[item].ParentId == _id)
+                if (item.Value.ParentId == _id)
                 {
-                    commentListBox.Items.Add(comMap[item].ToString());
+                    commentListBox.Items.Add(item.Value.ToString());
                     commentListBox.Items.Add(Environment.NewLine);
 
-                    foreach(var index in comMap[item].CommentReplies)
+                    foreach(var index in item.Value.CommentReplies.OrderBy(key => key.Score).Reverse())
                     {
                         commentListBox.Items.Add("\t"+index.ToString());
                         commentListBox.Items.Add(Environment.NewLine);
+                        
+                        foreach(var last in index.CommentReplies)
+                        {
+                            commentListBox.Items.Add("\t\t" + last.ToString());
+                            commentListBox.Items.Add(Environment.NewLine);
+                        }
                     }
                 }
                 
@@ -665,19 +663,25 @@ namespace wolfPack_Assign2
             else
             {
 
-                if ( ((commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!") || (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")) && selectedUser != "")
+                if ( selectedUser != "")
                 {
                     try
                     {
                         string selectedMessage = "";
                         uint parent = 0;
+                        bool commentFlag = false; //false if its for a post, true if its for a post
                         string response = addReplyTextBox.Text; // get reply content
-                        uint author = nameToId(selectedUser.Substring(1, 4), 1); //get user's id
+                        string[] users = selectedUser.Split(' ');
+                        uint author = nameToId(users[0], 1); //get user's id
 
-                        if (commentListBox.SelectedIndex != -1)//its a comment
+
+                        if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!")//its a comment
                         {
                             selectedMessage = commentListBox.Items[commentListBox.SelectedIndex].ToString();
-                            parent = Convert.ToUInt32(selectedCom.Substring(1, 4)); //get parent id
+                            MessageBox.Show(selectedMessage);
+                            string trimmed = String.Concat(selectedMessage.Where(c => !Char.IsWhiteSpace(c)));
+                            parent = Convert.ToUInt32(trimmed.Substring(1, 4)); //get parent id
+                            commentFlag = true;
                         }
                         else // its a post
                         {
@@ -685,38 +689,47 @@ namespace wolfPack_Assign2
                             parent = Convert.ToUInt32(selectedPost.Substring(1, 4)); //get parent id
                         }
 
+                        MessageBox.Show(parent.ToString());
+
 
                         findBadWords(response);
 
+                        MessageBox.Show(author.ToString());
 
                         Comment temp = new Comment(response, author, parent);
+                        comMap[temp.Id] = temp;
 
-                        if (postListBox.SelectedIndex != -1)//its a post
+                        MessageBox.Show(temp.ToString());
+
+                        if (!commentFlag)//its a post
                         {
                             foreach (var item in postMap.Keys)
                             {
-                                foreach (var index in postMap[item].PostComments)
+                                
+                                if (postMap[item].Id == parent)
                                 {
-                                    if (index.Id == parent)
-                                    {
-                                        index.addComment(temp);
-                                    }
+                                    postMap[item].PostComments.Add(temp);
                                 }
+                                
                             }
                         }
-                        else
+                        else //its a comment
                         {
                             foreach (var item in comMap.Keys)
                             {
-                                foreach (var index in comMap[item].CommentReplies)
+                                
+                                if (comMap[item].Id == parent)
                                 {
-                                    if (index.Id == parent)
-                                    {
-                                        index.addComment(temp);
-                                    }
+                                    comMap[item].addComment(temp);
                                 }
+                                
                             }
                         }
+                        commentListBox.Items.Clear();
+                        populatePostComments(Convert.ToUInt32(selectedPost.Substring(1, 4)));
+                        sysOutputTextBox.AppendText("Comment added successfully!");
+                        sysOutputTextBox.AppendText(Environment.NewLine);
+                        addReplyTextBox.Clear();
 
                     }
                     catch (FoulLanguageException a)
@@ -724,16 +737,15 @@ namespace wolfPack_Assign2
                         MessageBox.Show(a.ToString());
                         sysOutputTextBox.AppendText(a.ToString());
                         sysOutputTextBox.AppendText(Environment.NewLine);
+                        addReplyTextBox.Clear();
+
                     }
 
-                    populatePostComments(Convert.ToUInt32(selectedPost.Substring(1, 4)));
-                    sysOutputTextBox.AppendText("Comment added successfully!");
-                    sysOutputTextBox.AppendText(Environment.NewLine);
 
                 }
                 else
                 {
-                    sysOutputTextBox.AppendText("Please select a comment, and verify you are properly logged in.");
+                    sysOutputTextBox.AppendText("Please verify you are properly logged in.");
                     sysOutputTextBox.AppendText(Environment.NewLine);
                 }
             }
@@ -742,13 +754,7 @@ namespace wolfPack_Assign2
 
         }
 
-        private void commentListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!") {
-                postListBox.ClearSelected();
-                
-            }
-        }
+       
     }
     
 }

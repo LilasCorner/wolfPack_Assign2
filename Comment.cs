@@ -74,26 +74,17 @@ namespace wolfPack_Assign2
 
             id = Form1.genId();
 
-            if (!Form1.UniqueId(_authorId))
-            {
-                authorID = Form1.genId();
-            }
-            else
-            {
-                authorID = _authorId;
-            }
+     
+            authorID = _authorId;
+            
 
             Content = _content;
 
 
-            if (!Form1.UniqueId(_parentId))
-            {
-                parentID = Form1.genId();
-            }
-            else
-            {
-                parentID = _parentId;
-            }
+           
+              
+            parentID = _parentId;
+            
 
             UpVotes = 1;
             DownVotes = 0;

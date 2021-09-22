@@ -196,7 +196,6 @@ namespace wolfPack_Assign2
             this.commentListBox.Name = "commentListBox";
             this.commentListBox.Size = new System.Drawing.Size(661, 108);
             this.commentListBox.TabIndex = 22;
-            this.commentListBox.SelectedIndexChanged += new System.EventHandler(this.commentListBox_SelectedIndexChanged);
             // 
             // deletePostButton
             // 
