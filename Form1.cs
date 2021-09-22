@@ -634,8 +634,10 @@ namespace wolfPack_Assign2
 
             if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!" && selectedUser != "")
             {
-                string selectedCom = commentListBox.Items[commentListBox.SelectedIndex].ToString();
+                string trimmed = String.Concat(commentListBox.Items[commentListBox.SelectedIndex].ToString().Where(c => !Char.IsWhiteSpace(c)));
+                string selectedCom = trimmed;
 
+                MessageBox.Show(selectedCom.Substring(1, 4));
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
                 uint userId = comMap[_id].AuthorId;
                 string[] user = selectedUser.Split(' ');
