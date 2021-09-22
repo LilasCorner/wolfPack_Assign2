@@ -472,7 +472,8 @@ namespace wolfPack_Assign2
                 passwordTextBox.ReadOnly = true;
                 loginButton.Text = "Login";
                 populatePosts(user[0], 1);
-                populateComments(user[0], 1);
+                uint parentId = nameToId(user[0], 1);
+                populatePostComments(parentId);
             }
             else //failed password
             {
@@ -489,13 +490,15 @@ namespace wolfPack_Assign2
         {
             uint parentId = nameToId(parentName, map);
 
-            if(subMap.ContainsKey(parentId))
+            
+
+            if(subMap.ContainsKey(parentId)) // if we're populating posts from a subreddit
             { 
-                if (subMap[parentId].Name == "all")
+                if (subMap[parentId].Name == "all") // if all subreddit selected
                 {
-                    foreach(var item in postMap.Keys) //FIX LATER copy over assignment 1 foreach that ordered everything
+                    foreach(KeyValuePair<uint, Post> index in postMap.OrderBy(key => key.Value).Reverse()) 
                     {
-                        postListBox.Items.Add(postMap[item].ToStringShort());
+                        postListBox.Items.Add(index.Value.ToStringShort());
                     }
                 }
                 else
@@ -508,15 +511,23 @@ namespace wolfPack_Assign2
                         }
                     }
                 }
-
-
-                if(postListBox.Items.Count == 0)
+               
+            }
+            else //we're populating from a user's posts
+            {
+                foreach (KeyValuePair<uint, Post> index in postMap.OrderBy(key => key.Value).Reverse())
                 {
-                    postListBox.Items.Add("Wow, such empty!");
+                    if (index.Value.AuthorId == parentId)
+                    {
+                        postListBox.Items.Add(index.Value.ToStringShort());
+                    }
                 }
             }
-            
 
+            if (postListBox.Items.Count == 0)
+            {
+                postListBox.Items.Add("Wow, such empty!");
+            }
         }
 
         //FIX LATER NEED DOC BOX
@@ -678,7 +689,6 @@ namespace wolfPack_Assign2
                         if (commentListBox.SelectedIndex != -1 && commentListBox.Items[commentListBox.SelectedIndex].ToString() != "Wow, such empty!")//its a comment
                         {
                             selectedMessage = commentListBox.Items[commentListBox.SelectedIndex].ToString();
-                            MessageBox.Show(selectedMessage);
                             string trimmed = String.Concat(selectedMessage.Where(c => !Char.IsWhiteSpace(c)));
                             parent = Convert.ToUInt32(trimmed.Substring(1, 4)); //get parent id
                             commentFlag = true;
@@ -689,17 +699,13 @@ namespace wolfPack_Assign2
                             parent = Convert.ToUInt32(selectedPost.Substring(1, 4)); //get parent id
                         }
 
-                        MessageBox.Show(parent.ToString());
-
 
                         findBadWords(response);
 
-                        MessageBox.Show(author.ToString());
 
                         Comment temp = new Comment(response, author, parent);
                         comMap[temp.Id] = temp;
 
-                        MessageBox.Show(temp.ToString());
 
                         if (!commentFlag)//its a post
                         {
@@ -734,7 +740,7 @@ namespace wolfPack_Assign2
                     }
                     catch (FoulLanguageException a)
                     {
-                        MessageBox.Show(a.ToString());
+                        MessageBox.Show(a.ToString()); //KEEP THIS MESSAGE BOX!
                         sysOutputTextBox.AppendText(a.ToString());
                         sysOutputTextBox.AppendText(Environment.NewLine);
                         addReplyTextBox.Clear();
