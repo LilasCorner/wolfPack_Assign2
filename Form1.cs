@@ -398,7 +398,7 @@ namespace wolfPack_Assign2
           
             foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
-=
+
                 if (item.Value.ParentId == _id)
                 {
                     commentListBox.Items.Add(item.Value.ToString());
