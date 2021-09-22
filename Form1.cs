@@ -670,9 +670,10 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void addReplyButton_Click(object sender, EventArgs e)
         {
-            if(addReplyTextBox.Text == "")
+            if(addReplyTextBox.Text == "" || postListBox.SelectedIndex == -1 )
+
             {
-                sysOutputTextBox.AppendText("Please type the reply you would like to add to either a post or comment");
+                sysOutputTextBox.AppendText("Please type the reply you would like to add and select either a post or comment");
                 sysOutputTextBox.AppendText(Environment.NewLine);
             }
             else
