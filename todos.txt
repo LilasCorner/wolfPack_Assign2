@@ -1,4 +1,4 @@
 Todos:
 
-
-- when user logs in their posts should show
+- when user logs in their comments should show
+- Documentation everywhere
