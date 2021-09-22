@@ -352,7 +352,7 @@ namespace wolfPack_Assign2
             passwordTextBox.ReadOnly = false;
             passwordTextBox.Clear();
 
-            if (userNameCombo.SelectedIndex != -1) //no username selected
+            if (userNameCombo.SelectedIndex != -1) //username selected
             {
                 selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
                 sysOutputTextBox.AppendText("Please login.");
@@ -372,12 +372,10 @@ namespace wolfPack_Assign2
         public void populateComments(string parentName, uint map)
         {
             uint parent = nameToId(parentName, map);
-           
-
 
             foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
-                if (item.Value.ParentId == parent)
+                if (item.Value.AuthorId == parent)
                 {
                     commentListBox.Items.Add(item.Value.ToString());
                     commentListBox.Items.Add(Environment.NewLine);
@@ -400,6 +398,7 @@ namespace wolfPack_Assign2
           
             foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
+=
                 if (item.Value.ParentId == _id)
                 {
                     commentListBox.Items.Add(item.Value.ToString());
@@ -407,11 +406,13 @@ namespace wolfPack_Assign2
 
                     foreach(var index in item.Value.CommentReplies.OrderBy(key => key.Score).Reverse())
                     {
+
                         commentListBox.Items.Add("\t"+index.ToString());
                         commentListBox.Items.Add(Environment.NewLine);
                         
                         foreach(var last in index.CommentReplies)
                         {
+
                             commentListBox.Items.Add("\t\t" + last.ToString());
                             commentListBox.Items.Add(Environment.NewLine);
                         }
@@ -472,8 +473,8 @@ namespace wolfPack_Assign2
                 passwordTextBox.ReadOnly = true;
                 loginButton.Text = "Login";
                 populatePosts(user[0], 1);
-                uint parentId = nameToId(user[0], 1);
-                populatePostComments(parentId);
+                //uint parentId = nameToId(user[0], 1);
+                populateComments(user[0],1);
             }
             else //failed password
             {
@@ -561,11 +562,13 @@ namespace wolfPack_Assign2
         //FIX LATER NEED DOC BOX
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            commentListBox.Items.Clear();
-            commentListBox.ClearSelected();
+
 
             if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
+                commentListBox.Items.Clear();
+                commentListBox.ClearSelected();
+
                 selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
                 uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
                 sysOutputTextBox.AppendText(postMap[_id].ToString());
@@ -637,7 +640,6 @@ namespace wolfPack_Assign2
                 string trimmed = String.Concat(commentListBox.Items[commentListBox.SelectedIndex].ToString().Where(c => !Char.IsWhiteSpace(c)));
                 string selectedCom = trimmed;
 
-                MessageBox.Show(selectedCom.Substring(1, 4));
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
                 uint userId = comMap[_id].AuthorId;
                 string[] user = selectedUser.Split(' ');
@@ -733,8 +735,8 @@ namespace wolfPack_Assign2
                                 
                             }
                         }
-                        commentListBox.Items.Clear();
-                        populatePostComments(Convert.ToUInt32(selectedPost.Substring(1, 4)));
+                        commentListBox.Items.Clear();//clearing the comment box
+                        populatePostComments(Convert.ToUInt32(selectedPost.Substring(1, 4))); //repopulating it
                         sysOutputTextBox.AppendText("Comment added successfully!");
                         sysOutputTextBox.AppendText(Environment.NewLine);
                         addReplyTextBox.Clear();
