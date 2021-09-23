@@ -1,13 +1,3 @@
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe.config
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.pdb
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.AssemblyReference.cache
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.Form1.resources
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.Properties.Resources.resources
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.GenerateResource.cache
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.CoreCompileInputs.cache
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.exe
-C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.pdb
 C:\Users\lilaz\Desktop\2021Courses\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe.config
 C:\Users\lilaz\Desktop\2021Courses\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe
 C:\Users\lilaz\Desktop\2021Courses\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.pdb
@@ -27,3 +17,12 @@ C:\Users\lilaz\Desktop\2021Classes\csci473\wolfPack_Assign2\obj\Debug\wolfPack_A
 C:\Users\lilaz\Desktop\2021Classes\csci473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.CoreCompileInputs.cache
 C:\Users\lilaz\Desktop\2021Classes\csci473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.exe
 C:\Users\lilaz\Desktop\2021Classes\csci473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.pdb
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe.config
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.exe
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\bin\Debug\wolfPack_Assign2.pdb
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.Form1.resources
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.Properties.Resources.resources
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.GenerateResource.cache
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.csproj.CoreCompileInputs.cache
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.exe
+C:\Users\harry\OneDrive\NIU\CSCI 473\wolfPack_Assign2\obj\Debug\wolfPack_Assign2.pdb
