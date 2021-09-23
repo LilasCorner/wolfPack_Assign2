@@ -685,7 +685,6 @@ namespace wolfPack_Assign2
                 string[] user = selectedUser.Split(' ');
                 uint currentUser = nameToId(user[0], 1);
 
-                MessageBox.Show(usersMap[currentUser].Name);
                 uint deleteItem =0;
                 Comment deleteIndex = new Comment();
                 bool replyFlag = false;
@@ -736,9 +735,7 @@ namespace wolfPack_Assign2
                     string temp = String.Concat(selectedCom.Where(c => !Char.IsWhiteSpace(c)));
                     uint comId = Convert.ToUInt32(temp.Substring(1, 4)); //get actual id no whitespace
 
-                    if (comMap.ContainsKey(_id)) { 
-                        MessageBox.Show("Literally how");
-                    }
+               
 
 
 
