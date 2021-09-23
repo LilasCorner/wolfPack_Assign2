@@ -1,5 +1,5 @@
 ﻿/***************************************************************
-CSCI 473      Assignment 1     Fall 2021
+CSCI 473      Assignment 2     Fall 2021
 
 Programmer: Lila & Harshith
 
@@ -7,7 +7,7 @@ ZIDS: Z1838117 & Z1891464
 
 Section: 01
 
-Date Due: 9/9/21
+Date Due: 9/23/21
 ***************************************************************/
 
 using System;
