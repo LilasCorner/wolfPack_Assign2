@@ -45,7 +45,10 @@ namespace wolfPack_Assign2
             addData();
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: readData()
+        //Purpose: reads data from all the .txt files
+        //Params: N/A
+        //Returns: N/A
         public void readData()
         {
             string lineRead = "";
@@ -212,7 +215,10 @@ namespace wolfPack_Assign2
 
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method:nameToId(string name, uint dictionary) 
+        //Purpose: converts the name given to the id in the dictinoary present 
+        //Params: string name, uint dictionary 
+        //returns: uint 
         public uint nameToId(string name, uint dictionary)
         {
             if (dictionary == 1)
@@ -242,6 +248,9 @@ namespace wolfPack_Assign2
             return 0;
         }
 
+        //Method: whatAmI(uint id)
+        //Purpose: given an id, it will give us what the type of clasas it is 
+        // Params: uint id 
         //returns what class type the paramater ID is from FIX LATER NEEDS DOC BOX
         public static int whatAmI(uint id)
         {
@@ -346,7 +355,10 @@ namespace wolfPack_Assign2
             return false;
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: userNameCombo_SelectedIndexChanged(object sender, EventArgs e) 
+        //Purpose: this method is called when the user selects an different suernamae 
+        //Params: object sender, EventArgs e
+        //returns: N/A
         private void userNameCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             passwordTextBox.ReadOnly = false;
@@ -361,7 +373,10 @@ namespace wolfPack_Assign2
             }
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: ClearListBoxes()
+        //Purpose: this method will clear only the commentsListBox, and also the postListBox
+        //Params: N/A
+        //returns: N/A
         public void clearListBoxes()
         {
             commentListBox.Items.Clear();
@@ -390,8 +405,10 @@ namespace wolfPack_Assign2
 
         }
 
-        //FIX LATER NEED DOC BOX
-        //FIX LATER NEED TO IMPLEMENT COMMENTS CLASS 
+        //Method: populatePostComments(uint _id) 
+        //Purpose: This method will populate the post comments in the comments box 
+        //Params: uint _id 
+        //returns: N/A
         public void populatePostComments(uint _id)
         {
             
@@ -428,7 +445,10 @@ namespace wolfPack_Assign2
 
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: loginCheck(string user,string pass) 
+        //Purpose: to check if the suer has logged in with the correct username and password 
+        //Params: string user, string pass
+        //returns: if the login was correct or not 
         public bool loginCheck(string user, string pass)
         {
 
@@ -445,7 +465,10 @@ namespace wolfPack_Assign2
             return false;
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: loginButton_click(object sender, EventArgs e)
+        //Purpose: to login the user if the username and pasword is correct 
+        //Params: object sender, EventArgs e
+        //returns: N/A
         private void loginButton_Click(object sender, EventArgs e)
         {
             clearListBoxes(); 
@@ -486,7 +509,10 @@ namespace wolfPack_Assign2
             }
         }
 
-        //FIX LATER  doc box
+        //Method: populatePosts(string parentName,uint map) 
+        //Purpose: we are populating post based on the subReddit 
+        //Params: string parentName,uint map
+        //returns: N/A
         private void populatePosts(string parentName, uint map)
         {
             uint parentId = nameToId(parentName, map);
@@ -531,7 +557,10 @@ namespace wolfPack_Assign2
             }
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: subredditListBox_SelectedIndexChanged(object sender, EventArgs e) 
+        //Purpose: populate all the subreddits in the sub reddit's listbox 
+        //Params: object sender,EventArgs e 
+        //returns: N/A
         private void subredditListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(subredditListBox.SelectedIndex != -1)
@@ -559,7 +588,10 @@ namespace wolfPack_Assign2
 
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: postListBox_selectedindexChanged(object sender, EventArgs e) 
+        //Purpose: someone clicked on the posts, so we show comments, and also will show the full post in the systemOutput box
+        //Params: object sender,EventArgs e
+        //returns: N/A
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -591,7 +623,10 @@ namespace wolfPack_Assign2
             
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: deletePostButton_click(object sender,EventArgs e) 
+        //Purpose: delete the post selected 
+        //Params: object sender, EventArgs e
+        //returns: N/A
         private void deletePostButton_Click(object sender, EventArgs e)
         {
             if(postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
@@ -631,7 +666,10 @@ namespace wolfPack_Assign2
             }
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: deleteCommentButton_Click(object sender,EventArgs e) 
+        //Purpose: should delete the comment selected from the commentListBox
+        //Params: object sender, EventArgs e
+        //returns: N/A
         private void deleteCommentButton_Click(object sender, EventArgs e)
         {
 
@@ -721,7 +759,10 @@ namespace wolfPack_Assign2
             }
         }
 
-        //FIX LATER NEED DOC BOX
+        //Method: addReplyButton_Click(object sender,EventArgs e) 
+        //Purpose: this method will add reply that was typed in the addReply textBox 
+        //Params: object sender,EventArgs e 
+        //returns: N/A
         private void addReplyButton_Click(object sender, EventArgs e)
         {
             if(addReplyTextBox.Text == "" || postListBox.SelectedIndex == -1 || postListBox.Items[postListBox.SelectedIndex].ToString() == "Wow, such empty!")
