@@ -367,7 +367,9 @@ namespace wolfPack_Assign2
             if (userNameCombo.SelectedIndex != -1) //username selected
             {
                 selectedUser = userNameCombo.Items[userNameCombo.SelectedIndex].ToString();
-                sysOutputTextBox.AppendText("Please login.");
+                string[] user = selectedUser.Split(' ');
+
+                sysOutputTextBox.AppendText("Please login, " + user[0]);
                 sysOutputTextBox.AppendText(Environment.NewLine);
                 clearListBoxes();
             }
