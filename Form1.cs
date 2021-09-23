@@ -399,7 +399,7 @@ namespace wolfPack_Assign2
             foreach (KeyValuePair<uint, Comment> item in comMap.OrderBy(key => key.Value).Reverse())
             {
 
-                if (item.Value.ParentId == _id)
+                if (item.Value.ParentId == _id && comMap.ContainsKey(item.Key))
                 {
                     commentListBox.Items.Add(item.Value.ToString());
                     commentListBox.Items.Add(Environment.NewLine);
@@ -563,13 +563,13 @@ namespace wolfPack_Assign2
         private void postListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-
             if (postListBox.SelectedIndex != -1 && postListBox.Items[postListBox.SelectedIndex].ToString() != "Wow, such empty!")
             {
                 commentListBox.Items.Clear();
                 commentListBox.ClearSelected();
 
                 selectedPost = postListBox.Items[postListBox.SelectedIndex].ToString();
+
                 uint _id = Convert.ToUInt32(selectedPost.Substring(1, 4));
                 sysOutputTextBox.AppendText(postMap[_id].ToString());
                 sysOutputTextBox.AppendText(Environment.NewLine);
@@ -641,15 +641,69 @@ namespace wolfPack_Assign2
                 string selectedCom = trimmed;
 
                 uint _id = Convert.ToUInt32(selectedCom.Substring(1, 4));
+                
                 uint userId = comMap[_id].AuthorId;
+
                 string[] user = selectedUser.Split(' ');
                 uint currentUser = nameToId(user[0], 1);
 
+                MessageBox.Show(usersMap[currentUser].Name);
+                uint deleteItem =0;
+                Comment deleteIndex = new Comment();
+                bool replyFlag = false;
+
                 if (usersMap[currentUser].Name.Equals(usersMap[userId].Name) || usersMap[currentUser].UserType == 2)
                 {
+                    
+                    foreach(var item in comMap.Keys) //delete the comment from any other replies if it is a reply
+                    {
+                        foreach(var index in comMap[item].CommentReplies)
+                        {
+                            if (index.Id == _id) { 
+                                deleteItem=item;
+                                deleteIndex=index;
+                                replyFlag = true;
+                            }
+                        }
+                        
+                    }
 
-                    comMap.Remove(_id);
-                    commentListBox.Items.RemoveAt(commentListBox.SelectedIndex);
+                    if (replyFlag) { 
+                         comMap[deleteItem].CommentReplies.Remove(deleteIndex);
+                    }
+
+                    replyFlag=false;//resetting flag
+                    comMap.Remove(_id);// then we remove from the map entirely
+                    commentListBox.Items.RemoveAt(commentListBox.SelectedIndex); // remove from the list box
+
+
+
+                    uint postId = Convert.ToUInt32(selectedPost.Substring(1,4)); //remove from the post it's from                  
+                    foreach(var items in postMap.Keys) { 
+
+                        foreach(var index in postMap[items].PostComments)
+                        {
+                            if (index.Id == _id) { 
+                                deleteItem = items;
+                                deleteIndex = index;
+                                replyFlag = true;
+                            }
+                        }
+                    }
+
+                    if (replyFlag) { 
+                        postMap[deleteItem].PostComments.Remove(deleteIndex);
+                    }
+
+                    string temp = String.Concat(selectedCom.Where(c => !Char.IsWhiteSpace(c)));
+                    uint comId = Convert.ToUInt32(temp.Substring(1, 4)); //get actual id no whitespace
+
+                    if (comMap.ContainsKey(_id)) { 
+                        MessageBox.Show("Literally how");
+                    }
+
+
+
 
                     sysOutputTextBox.AppendText("Comment successfully deleted!");
                     sysOutputTextBox.AppendText(Environment.NewLine);

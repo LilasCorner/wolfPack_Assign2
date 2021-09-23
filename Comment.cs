@@ -187,7 +187,9 @@ namespace wolfPack_Assign2
 
         public override string ToString()
         {
-            return "<"+Id+">" + " (" + Score + ") " + Content + " - " + Form1.usersMap[AuthorId].Name + " |" + TimeStamp + "| \n\n";
+            string format = String.Format("{0:0000}", Id); 
+
+            return "<" + format + ">" + " (" + Score + ") " + Content + " - " + Form1.usersMap[AuthorId].Name + " |" + TimeStamp + "| \n\n";
 
         }
 
